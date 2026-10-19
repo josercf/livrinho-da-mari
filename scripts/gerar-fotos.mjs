@@ -6,8 +6,8 @@
 //   GEMINI_API_KEY=sua-chave node scripts/gerar-fotos.mjs --dias=3,8  gera só esses dias
 //   GEMINI_API_KEY=sua-chave node scripts/gerar-fotos.mjs --refazer   refaz todas
 //
-// Os prompts são lidos direto do site/index.html. Para mudar uma foto, mude o
-// prompt do dia na página e rode de novo com --dias=N --refazer.
+// Os prompts ficam em prompts.json, na raiz do repositório, fora do site.
+// Para mudar uma foto, mude o prompt do dia lá e rode de novo com --dias=N --refazer.
 
 import { readFile, access } from 'node:fs/promises';
 import path from 'node:path';
@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const arquivoHtml = path.join(raiz, 'site', 'index.html');
+const arquivoPrompts = path.join(raiz, 'prompts.json');
 const pastaImg = path.join(raiz, 'site', 'img');
 const API = 'https://generativelanguage.googleapis.com/v1beta';
 const chave = (process.env.GEMINI_API_KEY || '').trim();
@@ -42,27 +42,11 @@ const ESTILO =
 
 const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
 
-function limpar(t) {
-  return t
-    .replace(/<[^>]+>/g, '')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&amp;/g, '&')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-export function extrairPratos(html) {
-  const pratos = [];
-  const re = /<article class="day sheet" id="dia-(\d+)">([\s\S]*?)<\/article>/g;
-  for (const m of html.matchAll(re)) {
-    const n = Number(m[1]);
-    const titulo = limpar(m[2].match(/<h3>([\s\S]*?)<\/h3>/)?.[1] ?? '');
-    const prompt = limpar(m[2].match(/<p class="prompt-text">([\s\S]*?)<\/p>/)?.[1] ?? '');
-    if (prompt) pratos.push({ n, titulo, prompt });
-  }
-  return pratos;
+export async function carregarPratos(arquivo = arquivoPrompts) {
+  const lista = JSON.parse(await readFile(arquivo, 'utf8'));
+  return lista
+    .filter((p) => p && Number.isInteger(p.dia) && typeof p.prompt === 'string' && p.prompt.trim())
+    .map((p) => ({ n: p.dia, titulo: p.prato || `Dia ${p.dia}`, prompt: p.prompt.trim() }));
 }
 
 // Reconhece PNG, JPEG e WebP pelos primeiros bytes.
@@ -184,7 +168,7 @@ async function main() {
     process.exit(1);
   }
 
-  const pratos = extrairPratos(await readFile(arquivoHtml, 'utf8'));
+  const pratos = await carregarPratos();
   const fila = [];
   for (const p of pratos) {
     if (diasPedidos && !diasPedidos.includes(p.n)) continue;

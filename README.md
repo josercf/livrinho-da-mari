@@ -6,25 +6,25 @@ Endereço do site: https://josercf.github.io/livrinho-da-mari/
 
 ## Como está organizado
 
-- `site/index.html` é a página inteira. Os textos, as receitas e os prompts das fotos estão todos nela.
+- `site/index.html` é a página inteira, com os cardápios, as receitas e a lista de compras.
+- `prompts.json` guarda o prompt de cada foto. Ele fica fora do site e não aparece para quem visita.
 - `site/img/` guarda as fotos, uma por dia (`dia-01.webp` até `dia-15.webp`) e a `capa.jpg`, que aparece quando o link é compartilhado no WhatsApp.
 - `scripts/gerar-fotos.mjs` gera as fotos com o Nano Banana, pela API do Gemini.
 - `.github/workflows/` tem duas automações. Uma publica o site a cada mudança. A outra gera as fotos quando você manda.
 
-## Primeira vez
+## Publicação
 
-As 15 fotos já estão no repositório. Falta só ligar o site:
+Cada mudança na branch main publica o site sozinha, em um ou dois minutos. A automação que faz isso é a Publicar no GitHub Pages. Não crie outra pelo menu do Pages, porque ela publicaria o repositório inteiro no lugar da pasta do site.
 
-1. Em Settings, depois Pages, escolha GitHub Actions como Source.
-2. Na aba Actions, abra Publicar no GitHub Pages e clique em Run workflow.
+## Lista de compras
 
-Em um ou dois minutos o site aparece no endereço lá de cima. Daí em diante, cada mudança no repositório publica o site sozinha.
+A lista está dividida em três idas. A compra grande, na segunda 19/10, traz carnes, mercearia e o que dura duas semanas. A feira da semana 1, no mesmo dia, e a da semana 2, na segunda 26/10, trazem fruta, folha, leite, iogurte, muçarela e pão.
 
 Para gerar fotos pelo GitHub, a chave do Gemini precisa estar salva em Settings, depois Secrets and variables, depois Actions, com o nome `GEMINI_API_KEY`. As chaves são criadas em https://aistudio.google.com/apikey.
 
 ## Trocar uma foto
 
-Mude o prompt do dia dentro de `site/index.html`, rode Gerar fotos dos pratos com o número do dia no campo de dias e marque Refazer.
+Mude o prompt do dia em `prompts.json`, rode Gerar fotos dos pratos com o número do dia no campo de dias e marque Refazer.
 
 Também dá para rodar no computador:
 

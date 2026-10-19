@@ -158,7 +158,7 @@ h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(46px, 
 .shop-bar button:hover { border-color: var(--tomato); color: var(--tomato); }
 .shop { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 22px 36px; }
 .shop > div { min-width: 0; }
-.shop h3 { font-family: var(--font-display); font-weight: 400; font-size: 20px; margin: 0 0 6px; padding-bottom: 6px; border-bottom: 2px solid var(--tomato-soft); }
+.shop h4 { font-family: var(--font-display); font-weight: 400; font-size: 20px; margin: 0 0 6px; padding-bottom: 6px; border-bottom: 2px solid var(--tomato-soft); }
 .shop ul { list-style: none; margin: 0; padding: 0; }
 .shop li { border-bottom: 1px dashed var(--line); }
 .shop label { display: flex; align-items: center; gap: 10px; padding: 8px 0; cursor: pointer; }
@@ -166,7 +166,19 @@ h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(46px, 
 .shop .item { min-width: 0; }
 .shop .qty { margin-left: auto; color: var(--muted); font-weight: 700; font-size: 14px; white-space: nowrap; font-variant-numeric: tabular-nums; padding-left: 10px; }
 .shop input:checked ~ .item { text-decoration: line-through; color: var(--muted); }
-.shop-note { margin-top: 18px; font-size: 15px; color: var(--muted); }
+.trips { display: grid; gap: 30px; }
+.trip { display: grid; gap: 12px; min-width: 0; }
+.trip-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; }
+.trip-title { font-family: var(--font-display); font-weight: 400; font-size: 24px; margin: 0; line-height: 1.2; }
+.trip-date { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--tomato); }
+.trip-count { margin-left: auto; font-size: 13px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+.trip-note { font-size: 15px; color: var(--muted); max-width: 64ch; }
+.weeks { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.trip.feira { background: var(--surface-2); border-radius: 14px; padding: 18px 18px 10px; align-content: start; }
+.trip.feira .shop { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+.day-flag { display: inline-block; margin-top: 10px; font-size: 13px; font-weight: 800; color: var(--leaf); background: var(--leaf-soft); padding: 4px 12px; border-radius: 999px; text-decoration: none; }
+.day-flag:hover { text-decoration: underline; }
+.shop-note { margin-top: 22px; font-size: 15px; color: var(--muted); }
 
 /* Semanas e dias */
 .week { margin: 44px 0 14px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
@@ -194,11 +206,7 @@ h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(46px, 
   content: counter(step); position: absolute; left: 0; top: 1px; width: 26px; height: 26px; border-radius: 50%;
   background: var(--tomato); color: var(--on-accent); font-weight: 800; font-size: 13px; display: grid; place-items: center;
 }
-.prompt { border: 1.5px dashed var(--yolk); border-radius: 12px; padding: 14px 16px; background: var(--yolk-soft); }
-.prompt h4 { color: var(--fg); }
-.prompt-text { font-size: 15px; margin-bottom: 12px; line-height: 1.5; }
-.copy { font: inherit; font-weight: 800; font-size: 14px; padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--fg); background: transparent; color: var(--fg); cursor: pointer; }
-.copy:hover, .copy.ok { background: var(--fg); color: var(--surface); }
+.recipe > :last-child { margin-bottom: 0; }
 
 /* Receitas-base */
 .base { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px 28px; }
@@ -231,7 +239,7 @@ img { max-width: 100%; }
       <span>porções para 1 pessoa</span>
       <span>quase tudo na air fryer</span>
     </div>
-    <p class="lead">Cada dia tem a sua página, com o cardápio inteiro, do café à ceia, a foto do prato principal, a receita passo a passo e o prompt que gerou a foto no Gemini. A lista de compras cobre os 15 dias de uma vez só.</p>
+    <p class="lead">Cada dia tem a sua página, com o cardápio inteiro, do café à ceia, a foto do prato principal e a receita passo a passo. As compras estão divididas em uma compra grande e uma feira por semana, para nada estragar na geladeira.</p>
   </div>
   <svg class="mark" viewBox="0 0 160 76" width="160" height="76" aria-hidden="true">
     <circle class="tomato" cx="36" cy="44" r="26"/>
@@ -334,81 +342,161 @@ img { max-width: 100%; }
 
 <div class="sec-head" id="compras">
   <h2><span class="trio" aria-hidden="true"><i></i><i></i><i></i></span>Lista de compras</h2>
-  <span class="when">segunda, 19/10</span>
 </div>
 <section class="sheet">
-  <p class="sec-intro">Tudo para os 15 dias, para 1 pessoa. Marque o que já entrou no carrinho. A lista fica salva só neste aparelho.</p>
+  <p class="sec-intro">São três idas ao mercado. A compra grande traz o que aguenta as duas semanas na despensa ou no congelador. Fruta, folha, leite, iogurte, muçarela e pão entram na feira de cada semana, para chegarem frescos. Marque o que já foi para o carrinho. As marcações ficam salvas só neste aparelho.</p>
   <div class="shop-bar">
-    <span id="shop-count">0 de 44 no carrinho</span>
+    <span id="shop-count">0 itens no carrinho</span>
     <button type="button" id="shop-clear">Limpar marcações</button>
   </div>
-  <div class="shop">
-    <div>
-      <h3>Açougue e peixaria</h3>
-      <ul>
-        <li><label><input type="checkbox" id="c01"><span class="item">Peito de frango</span><span class="qty">2 kg</span></label></li>
-        <li><label><input type="checkbox" id="c02"><span class="item">Bife de patinho</span><span class="qty">1,5 kg</span></label></li>
-        <li><label><input type="checkbox" id="c03"><span class="item">Carne moída de patinho</span><span class="qty">1 kg</span></label></li>
-        <li><label><input type="checkbox" id="c04"><span class="item">Filé de tilápia e pescada branca</span><span class="qty">600 g + 300 g</span></label></li>
-        <li><label><input type="checkbox" id="c05"><span class="item">Linhaça dourada moída e nozes</span><span class="qty">200 g de cada</span></label></li>
-      </ul>
+  <div class="trips">
+  <div class="trip" id="compra-grande">
+    <div class="trip-head">
+      <h3 class="trip-title">Compra grande</h3>
+      <span class="trip-date">segunda, 19/10</span>
+      <span class="trip-count" data-count></span>
     </div>
-    <div>
-      <h3>Laticínios e ovos</h3>
-      <ul>
-        <li><label><input type="checkbox" id="c06"><span class="item">Ovos</span><span class="qty">30 unidades</span></label></li>
-        <li><label><input type="checkbox" id="c07"><span class="item">Leite pasteurizado</span><span class="qty">6 L</span></label></li>
-        <li><label><input type="checkbox" id="c08"><span class="item">Iogurte natural ou de morango</span><span class="qty">15 potes</span></label></li>
-        <li><label><input type="checkbox" id="c09"><span class="item">Muçarela pasteurizada</span><span class="qty">800 g</span></label></li>
-        <li><label><input type="checkbox" id="c10"><span class="item">Parmesão ralado</span><span class="qty">200 g</span></label></li>
-        <li><label><input type="checkbox" id="c11"><span class="item">Requeijão</span><span class="qty">1 pote</span></label></li>
-      </ul>
-    </div>
-    <div>
-      <h3>Hortifrúti</h3>
-      <ul>
-        <li><label><input type="checkbox" id="c12"><span class="item">Banana</span><span class="qty">2 dúzias</span></label></li>
-        <li><label><input type="checkbox" id="c13"><span class="item">Morango</span><span class="qty">3 caixas</span></label></li>
-        <li><label><input type="checkbox" id="c14"><span class="item">Laranja</span><span class="qty">2 kg</span></label></li>
-        <li><label><input type="checkbox" id="c15"><span class="item">Maçã</span><span class="qty">8 unidades</span></label></li>
-        <li><label><input type="checkbox" id="c16"><span class="item">Manga</span><span class="qty">3 unidades</span></label></li>
-        <li><label><input type="checkbox" id="c17"><span class="item">Mamão</span><span class="qty">2 unidades</span></label></li>
-        <li><label><input type="checkbox" id="c18"><span class="item">Polpa de acerola</span><span class="qty">1 pacote</span></label></li>
-        <li><label><input type="checkbox" id="c19"><span class="item">Batata</span><span class="qty">2 kg</span></label></li>
-        <li><label><input type="checkbox" id="c20"><span class="item">Batata-doce</span><span class="qty">1 kg</span></label></li>
-        <li><label><input type="checkbox" id="c21"><span class="item">Cenoura</span><span class="qty">1 kg</span></label></li>
-        <li><label><input type="checkbox" id="c22"><span class="item">Abóbora cabotiá</span><span class="qty">1 pedaço de 1 kg</span></label></li>
-        <li><label><input type="checkbox" id="c23"><span class="item">Espinafre</span><span class="qty">3 maços</span></label></li>
-        <li><label><input type="checkbox" id="c24"><span class="item">Brócolis</span><span class="qty">3 maços</span></label></li>
-        <li><label><input type="checkbox" id="c25"><span class="item">Couve</span><span class="qty">2 maços</span></label></li>
-        <li><label><input type="checkbox" id="c26"><span class="item">Tomate</span><span class="qty">1 kg</span></label></li>
-        <li><label><input type="checkbox" id="c27"><span class="item">Cebola e alho</span><span class="qty">a gosto</span></label></li>
-      </ul>
-    </div>
-    <div>
-      <h3>Mercearia</h3>
-      <ul>
-        <li><label><input type="checkbox" id="c28"><span class="item">Arroz</span><span class="qty">2 kg</span></label></li>
-        <li><label><input type="checkbox" id="c29"><span class="item">Feijão carioca</span><span class="qty">1 kg</span></label></li>
-        <li><label><input type="checkbox" id="c30"><span class="item">Lentilha</span><span class="qty">500 g</span></label></li>
-        <li><label><input type="checkbox" id="c31"><span class="item">Grão-de-bico</span><span class="qty">500 g</span></label></li>
-        <li><label><input type="checkbox" id="c32"><span class="item">Macarrão</span><span class="qty">1 kg</span></label></li>
-        <li><label><input type="checkbox" id="c33"><span class="item">Massa de lasanha</span><span class="qty">1 pacote</span></label></li>
-        <li><label><input type="checkbox" id="c34"><span class="item">Molho de tomate</span><span class="qty">6 caixas</span></label></li>
-        <li><label><input type="checkbox" id="c35"><span class="item">Farinha panko</span><span class="qty">2 pacotes</span></label></li>
-        <li><label><input type="checkbox" id="c36"><span class="item">Farinha de trigo</span><span class="qty">1 kg</span></label></li>
-        <li><label><input type="checkbox" id="c37"><span class="item">Aveia em flocos</span><span class="qty">500 g</span></label></li>
-        <li><label><input type="checkbox" id="c38"><span class="item">Goma de tapioca</span><span class="qty">500 g</span></label></li>
-        <li><label><input type="checkbox" id="c39"><span class="item">Pão de forma integral</span><span class="qty">2 pacotes</span></label></li>
-        <li><label><input type="checkbox" id="c40"><span class="item">Milho em lata</span><span class="qty">2 latas</span></label></li>
-        <li><label><input type="checkbox" id="c41"><span class="item">Chia</span><span class="qty">200 g</span></label></li>
-        <li><label><input type="checkbox" id="c42"><span class="item">Castanha-de-caju e castanha-do-pará</span><span class="qty">300 g</span></label></li>
-        <li><label><input type="checkbox" id="c43"><span class="item">Mel, achocolatado e cacau em pó</span><span class="qty">1 de cada</span></label></li>
-        <li><label><input type="checkbox" id="c44"><span class="item">Azeite e sal iodado</span><span class="qty">1 de cada</span></label></li>
-      </ul>
+    <p class="trip-note">Dura as duas semanas. Congele em porções as carnes e o peixe que forem usados depois do dia 25/10. A polpa de acerola vai direto para o congelador.</p>
+    <div class="shop">
+      <div>
+        <h4>Açougue, peixaria e congelados</h4>
+        <ul>
+          <li><label><input type="checkbox" id="ga01"><span class="item">Peito de frango</span><span class="qty">2 kg</span></label></li>
+          <li><label><input type="checkbox" id="ga02"><span class="item">Bife de patinho</span><span class="qty">1,5 kg</span></label></li>
+          <li><label><input type="checkbox" id="ga03"><span class="item">Carne moída de patinho</span><span class="qty">1 kg</span></label></li>
+          <li><label><input type="checkbox" id="ga04"><span class="item">Filé de tilápia</span><span class="qty">600 g</span></label></li>
+          <li><label><input type="checkbox" id="ga05"><span class="item">Pescada branca</span><span class="qty">300 g</span></label></li>
+          <li><label><input type="checkbox" id="ga06"><span class="item">Polpa de acerola</span><span class="qty">1 pacote</span></label></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Mercearia</h4>
+        <ul>
+          <li><label><input type="checkbox" id="gm01"><span class="item">Arroz</span><span class="qty">2 kg</span></label></li>
+          <li><label><input type="checkbox" id="gm02"><span class="item">Feijão carioca</span><span class="qty">1 kg</span></label></li>
+          <li><label><input type="checkbox" id="gm03"><span class="item">Lentilha</span><span class="qty">500 g</span></label></li>
+          <li><label><input type="checkbox" id="gm04"><span class="item">Grão-de-bico</span><span class="qty">500 g</span></label></li>
+          <li><label><input type="checkbox" id="gm05"><span class="item">Macarrão</span><span class="qty">1 kg</span></label></li>
+          <li><label><input type="checkbox" id="gm06"><span class="item">Massa de lasanha</span><span class="qty">1 pacote</span></label></li>
+          <li><label><input type="checkbox" id="gm07"><span class="item">Molho de tomate</span><span class="qty">6 caixas</span></label></li>
+          <li><label><input type="checkbox" id="gm08"><span class="item">Farinha panko</span><span class="qty">2 pacotes</span></label></li>
+          <li><label><input type="checkbox" id="gm09"><span class="item">Farinha de trigo</span><span class="qty">1 kg</span></label></li>
+          <li><label><input type="checkbox" id="gm10"><span class="item">Aveia em flocos</span><span class="qty">500 g</span></label></li>
+          <li><label><input type="checkbox" id="gm11"><span class="item">Goma de tapioca</span><span class="qty">500 g</span></label></li>
+          <li><label><input type="checkbox" id="gm12"><span class="item">Milho em lata</span><span class="qty">2 latas</span></label></li>
+          <li><label><input type="checkbox" id="gm13"><span class="item">Chia</span><span class="qty">200 g</span></label></li>
+          <li><label><input type="checkbox" id="gm14"><span class="item">Linhaça dourada moída</span><span class="qty">200 g</span></label></li>
+          <li><label><input type="checkbox" id="gm15"><span class="item">Nozes</span><span class="qty">200 g</span></label></li>
+          <li><label><input type="checkbox" id="gm16"><span class="item">Castanha-de-caju e castanha-do-pará</span><span class="qty">300 g</span></label></li>
+          <li><label><input type="checkbox" id="gm17"><span class="item">Mel, achocolatado e cacau em pó</span><span class="qty">1 de cada</span></label></li>
+          <li><label><input type="checkbox" id="gm18"><span class="item">Azeite e sal iodado</span><span class="qty">1 de cada</span></label></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ovos e laticínios que duram</h4>
+        <ul>
+          <li><label><input type="checkbox" id="go01"><span class="item">Ovos</span><span class="qty">30 unidades</span></label></li>
+          <li><label><input type="checkbox" id="go02"><span class="item">Parmesão ralado</span><span class="qty">200 g</span></label></li>
+          <li><label><input type="checkbox" id="go03"><span class="item">Requeijão</span><span class="qty">1 pote</span></label></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legumes que duram</h4>
+        <ul>
+          <li><label><input type="checkbox" id="gl01"><span class="item">Batata</span><span class="qty">2 kg</span></label></li>
+          <li><label><input type="checkbox" id="gl02"><span class="item">Batata-doce</span><span class="qty">1 kg</span></label></li>
+          <li><label><input type="checkbox" id="gl03"><span class="item">Cenoura</span><span class="qty">1 kg</span></label></li>
+          <li><label><input type="checkbox" id="gl04"><span class="item">Cebola e alho</span><span class="qty">a gosto</span></label></li>
+        </ul>
+      </div>
     </div>
   </div>
-  <p class="shop-note">Congele em porções as carnes e o peixe que forem usados depois do dia 25/10.</p>
+    <div class="weeks">
+  <div class="trip feira" id="feira-1">
+    <div class="trip-head">
+      <h3 class="trip-title">Feira da semana 1</h3>
+      <span class="trip-date">segunda, 19/10</span>
+      <span class="trip-count" data-count></span>
+    </div>
+    <p class="trip-note">Para os dias 1 a 7, de 20/10 a 26/10.</p>
+    <div class="shop">
+      <div>
+        <h4>Frutas</h4>
+        <ul>
+          <li><label><input type="checkbox" id="s1f01"><span class="item">Banana</span><span class="qty">1 dúzia</span></label></li>
+          <li><label><input type="checkbox" id="s1f02"><span class="item">Morango</span><span class="qty">2 caixas</span></label></li>
+          <li><label><input type="checkbox" id="s1f03"><span class="item">Laranja</span><span class="qty">1 kg</span></label></li>
+          <li><label><input type="checkbox" id="s1f04"><span class="item">Maçã</span><span class="qty">4 unidades</span></label></li>
+          <li><label><input type="checkbox" id="s1f05"><span class="item">Manga</span><span class="qty">2 unidades</span></label></li>
+          <li><label><input type="checkbox" id="s1f06"><span class="item">Mamão</span><span class="qty">1 unidade</span></label></li>
+          <li><label><input type="checkbox" id="s1f07"><span class="item">Limão</span><span class="qty">2 unidades</span></label></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Verduras e legumes</h4>
+        <ul>
+          <li><label><input type="checkbox" id="s1v01"><span class="item">Espinafre</span><span class="qty">2 maços</span></label></li>
+          <li><label><input type="checkbox" id="s1v02"><span class="item">Brócolis</span><span class="qty">1 maço</span></label></li>
+          <li><label><input type="checkbox" id="s1v03"><span class="item">Alface</span><span class="qty">1 pé</span></label></li>
+          <li><label><input type="checkbox" id="s1v04"><span class="item">Tomate</span><span class="qty">500 g</span></label></li>
+          <li><label><input type="checkbox" id="s1v05"><span class="item">Abóbora cabotiá</span><span class="qty">500 g</span></label></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Geladeira e padaria</h4>
+        <ul>
+          <li><label><input type="checkbox" id="s1g01"><span class="item">Leite pasteurizado</span><span class="qty">3 L</span></label></li>
+          <li><label><input type="checkbox" id="s1g02"><span class="item">Iogurte natural ou de morango</span><span class="qty">7 potes</span></label></li>
+          <li><label><input type="checkbox" id="s1g03"><span class="item">Muçarela pasteurizada</span><span class="qty">400 g</span></label></li>
+          <li><label><input type="checkbox" id="s1g04"><span class="item">Pão de forma integral</span><span class="qty">1 pacote</span></label></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="trip feira" id="feira-2">
+    <div class="trip-head">
+      <h3 class="trip-title">Feira da semana 2</h3>
+      <span class="trip-date">segunda, 26/10</span>
+      <span class="trip-count" data-count></span>
+    </div>
+    <p class="trip-note">Para os dias 8 a 15, de 27/10 a 03/11.</p>
+    <div class="shop">
+      <div>
+        <h4>Frutas</h4>
+        <ul>
+          <li><label><input type="checkbox" id="s2f01"><span class="item">Banana</span><span class="qty">1 dúzia</span></label></li>
+          <li><label><input type="checkbox" id="s2f02"><span class="item">Morango</span><span class="qty">2 caixas</span></label></li>
+          <li><label><input type="checkbox" id="s2f03"><span class="item">Laranja</span><span class="qty">1 kg</span></label></li>
+          <li><label><input type="checkbox" id="s2f04"><span class="item">Maçã</span><span class="qty">4 unidades</span></label></li>
+          <li><label><input type="checkbox" id="s2f05"><span class="item">Manga</span><span class="qty">2 unidades</span></label></li>
+          <li><label><input type="checkbox" id="s2f06"><span class="item">Mamão</span><span class="qty">1 unidade</span></label></li>
+          <li><label><input type="checkbox" id="s2f07"><span class="item">Limão</span><span class="qty">2 unidades</span></label></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Verduras e legumes</h4>
+        <ul>
+          <li><label><input type="checkbox" id="s2v01"><span class="item">Espinafre</span><span class="qty">1 maço</span></label></li>
+          <li><label><input type="checkbox" id="s2v02"><span class="item">Brócolis</span><span class="qty">2 maços</span></label></li>
+          <li><label><input type="checkbox" id="s2v03"><span class="item">Couve</span><span class="qty">1 maço</span></label></li>
+          <li><label><input type="checkbox" id="s2v04"><span class="item">Tomate</span><span class="qty">500 g</span></label></li>
+          <li><label><input type="checkbox" id="s2v05"><span class="item">Abóbora cabotiá</span><span class="qty">500 g</span></label></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Geladeira e padaria</h4>
+        <ul>
+          <li><label><input type="checkbox" id="s2g01"><span class="item">Leite pasteurizado</span><span class="qty">3 L</span></label></li>
+          <li><label><input type="checkbox" id="s2g02"><span class="item">Iogurte natural ou de morango</span><span class="qty">8 potes</span></label></li>
+          <li><label><input type="checkbox" id="s2g03"><span class="item">Muçarela pasteurizada</span><span class="qty">400 g</span></label></li>
+          <li><label><input type="checkbox" id="s2g04"><span class="item">Pão de forma integral</span><span class="qty">1 pacote</span></label></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+    </div>
+  </div>
+  <p class="shop-note">Morango e espinafre duram três ou quatro dias na geladeira. Guarde secos e lave só na hora de usar. Se o leite for de caixinha longa vida, dá para levar os 6 L na compra grande.</p>
 </section>
 
 <h2 class="week" id="semana-1"><span class="trio" aria-hidden="true"><i></i><i></i><i></i></span>Semana 1 <span class="when">20/10 a 26/10</span></h2>
@@ -444,11 +532,6 @@ img { max-width: 100%; }
         <li>Air fryer a 200&nbsp;°C por 12 minutos, virando na metade. Corte no meio e confira se não está rosado.</li>
         <li>Cubra com o molho, a muçarela e o parmesão. Volte por 4 minutos até gratinar.</li>
       </ol>
-      <div class="prompt">
-        <h4>Prompt da foto</h4>
-        <p class="prompt-text">Foto profissional de comida, filé de frango à parmegiana dourado e crocante, coberto com molho de tomate vermelho brilhante e muçarela derretida e borbulhante, ao lado de arroz branco soltinho e feijão, prato branco, mesa de madeira, luz natural, close apetitoso</p>
-        <button type="button" class="copy">Copiar prompt</button>
-      </div>
     </section>
   </div>
 </article>
@@ -483,11 +566,6 @@ img { max-width: 100%; }
         <li>Air fryer a 190&nbsp;°C por 12 minutos, chacoalhando na metade, até ficarem bem assadas por dentro.</li>
         <li>Cozinhe o macarrão. Aqueça o molho, junte as almôndegas por 5 minutos e sirva por cima.</li>
       </ol>
-      <div class="prompt">
-        <h4>Prompt da foto</h4>
-        <p class="prompt-text">Foto profissional de comida, prato de espaguete com almôndegas suculentas ao molho de tomate, parmesão ralado por cima, folhinha de manjericão, prato fundo branco, luz natural quente, close apetitoso</p>
-        <button type="button" class="copy">Copiar prompt</button>
-      </div>
     </section>
   </div>
 </article>
@@ -522,11 +600,6 @@ img { max-width: 100%; }
         <li>Air fryer a 200&nbsp;°C por 10 a 12 minutos, virando na metade, até ficar bem passado, sem rosado no meio.</li>
         <li>Coloque o queijo por cima no último minuto. Monte com alface e tomate.</li>
       </ol>
-      <div class="prompt">
-        <h4>Prompt da foto</h4>
-        <p class="prompt-text">Foto profissional de comida, hambúrguer caseiro alto com queijo derretendo pelas bordas, alface fresca e tomate, pão dourado, batatas rústicas ao lado, tábua de madeira, luz natural, close apetitoso</p>
-        <button type="button" class="copy">Copiar prompt</button>
-      </div>
     </section>
   </div>
 </article>
@@ -562,11 +635,6 @@ img { max-width: 100%; }
         <li>Cozinhe as batatas, amasse com leite e requeijão.</li>
         <li>Brócolis cozido com parmesão por cima, 3 minutos na air fryer.</li>
       </ol>
-      <div class="prompt">
-        <h4>Prompt da foto</h4>
-        <p class="prompt-text">Foto profissional de comida, nuggets de peixe branco dourados e crocantes, purê de batata cremoso e brócolis verde gratinado com queijo, molhinho ao lado, prato branco, luz natural, close apetitoso</p>
-        <button type="button" class="copy">Copiar prompt</button>
-      </div>
     </section>
   </div>
 </article>
@@ -602,11 +670,6 @@ img { max-width: 100%; }
         <li>Air fryer a 200&nbsp;°C por 12 minutos, virando na metade, até ficar bem passado.</li>
         <li>Molho, muçarela e parmesão por cima, mais 4 minutos.</li>
       </ol>
-      <div class="prompt">
-        <h4>Prompt da foto</h4>
-        <p class="prompt-text">Foto profissional de comida, bife à parmegiana gratinado com queijo dourado e borbulhante, molho de tomate vermelho escorrendo, arroz, feijão e batatas assadas, prato branco, luz natural, close apetitoso</p>
-        <button type="button" class="copy">Copiar prompt</button>
-      </div>
     </section>
   </div>
 </article>
@@ -642,11 +705,6 @@ img { max-width: 100%; }
         <li>Forno ou air fryer a 180&nbsp;°C por 25 minutos, coberto com papel-alumínio, e mais 5 minutos sem, para gratinar.</li>
         <li>Rende 2 porções: guarde a outra para segunda.</li>
       </ol>
-      <div class="prompt">
-        <h4>Prompt da foto</h4>
-        <p class="prompt-text">Foto profissional de comida, fatia de lasanha de frango com camadas visíveis, queijo gratinado dourado e molho de tomate, refratário ao fundo, luz natural quente, close apetitoso</p>
-        <button type="button" class="copy">Copiar prompt</button>
-      </div>
     </section>
   </div>
 </article>
@@ -657,6 +715,7 @@ img { max-width: 100%; }
     <div class="day-title">
       <div class="day-date">segunda, 26/10</div>
       <h3>Escondidinho de carne</h3>
+      <a class="day-flag" href="#feira-2">Hoje é dia de feira da semana 2</a>
     </div>
   </header>
   <figure class="photo"><img src="img/dia-07.webp" alt="Foto do prato: escondidinho de carne" width="1280" height="960" loading="lazy" decoding="async" onerror="this.parentElement.hidden=true"></figure>
@@ -682,11 +741,6 @@ img { max-width: 100%; }
         <li>Num potinho, carne embaixo, purê em cima e muçarela.</li>
         <li>Air fryer a 180&nbsp;°C por 8 minutos, até gratinar.</li>
       </ol>
-      <div class="prompt">
-        <h4>Prompt da foto</h4>
-        <p class="prompt-text">Foto profissional de comida, escondidinho de carne em cumbuca de cerâmica, purê alaranjado de batata-doce coberto com queijo gratinado e dourado, colher tirando uma porção cremosa, luz natural, close apetitoso</p>
-        <button type="button" class="copy">Copiar prompt</button>
-      </div>
     </section>
   </div>
 </article>
@@ -723,11 +777,6 @@ img { max-width: 100%; }
         <li>Air fryer a 200&nbsp;°C por 10 minutos, virando com cuidado na metade.</li>
         <li>Molho, muçarela e parmesão por cima, mais 4 minutos.</li>
       </ol>
-      <div class="prompt">
-        <h4>Prompt da foto</h4>
-        <p class="prompt-text">Foto profissional de comida, filé de peixe branco à parmegiana, empanado dourado, molho de tomate e muçarela derretida gratinada, purê de batata cremoso ao lado, prato branco, luz natural, close apetitoso</p>
-        <button type="button" class="copy">Copiar prompt</button>
-      </div>
     </section>
   </div>
 </article>
@@ -762,11 +811,6 @@ img { max-width: 100%; }
         <li>Junte o molho e o milho, cozinhe 5 minutos e desligue com o requeijão.</li>
         <li>Batata ralada, seca no pano, com fio de azeite: air fryer a 180&nbsp;°C por 15 minutos, mexendo.</li>
       </ol>
-      <div class="prompt">
-        <h4>Prompt da foto</h4>
-        <p class="prompt-text">Foto profissional de comida, strogonoff de frango cremoso e rosado, arroz branco soltinho e batata palha dourada e crocante por cima, prato branco, luz natural, close apetitoso</p>
-        <button type="button" class="copy">Copiar prompt</button>
-      </div>
     </section>
   </div>
 </article>
@@ -801,11 +845,6 @@ img { max-width: 100%; }
         <li>Abra a massa de batata na mão, recheie e modele.</li>
         <li>Passe no ovo e no panko. Air fryer a 200&nbsp;°C por 12 minutos, até dourar.</li>
       </ol>
-      <div class="prompt">
-        <h4>Prompt da foto</h4>
-        <p class="prompt-text">Foto profissional de comida, coxinhas douradas e crocantes, uma partida ao meio mostrando recheio cremoso de frango, cesta de papel, copo de suco de laranja, luz natural, close apetitoso</p>
-        <button type="button" class="copy">Copiar prompt</button>
-      </div>
     </section>
   </div>
 </article>
@@ -840,11 +879,6 @@ img { max-width: 100%; }
         <li>Batata em palitos com fio de azeite: air fryer a 200&nbsp;°C por 20 minutos, chacoalhando. Reserve.</li>
         <li>Pescada a 200&nbsp;°C por 10 minutos, virando na metade, até ficar branca e soltando em lascas.</li>
       </ol>
-      <div class="prompt">
-        <h4>Prompt da foto</h4>
-        <p class="prompt-text">Foto profissional de comida, iscas de peixe empanadas douradas e batatas fritas crocantes, limão e molhinho ao lado, papel manteiga, cesta, luz natural, close apetitoso</p>
-        <button type="button" class="copy">Copiar prompt</button>
-      </div>
     </section>
   </div>
 </article>
@@ -879,11 +913,6 @@ img { max-width: 100%; }
         <li>Cubra com molho, frango, milho e muçarela.</li>
         <li>Air fryer a 180&nbsp;°C por 5 minutos, até o queijo derreter.</li>
       </ol>
-      <div class="prompt">
-        <h4>Prompt da foto</h4>
-        <p class="prompt-text">Foto profissional de comida, pizza individual com queijo derretido puxando, frango desfiado e milho, borda dourada, tábua de madeira, luz natural quente, close apetitoso</p>
-        <button type="button" class="copy">Copiar prompt</button>
-      </div>
     </section>
   </div>
 </article>
@@ -918,11 +947,6 @@ img { max-width: 100%; }
         <li>Farinha, ovo e panko. Air fryer a 190&nbsp;°C por 16 minutos, virando na metade, até cozinhar bem no centro.</li>
         <li>Molho, queijo e parmesão por cima, mais 4 minutos.</li>
       </ol>
-      <div class="prompt">
-        <h4>Prompt da foto</h4>
-        <p class="prompt-text">Foto profissional de comida, frango à parmegiana cortado ao meio com queijo derretido escorrendo do recheio, molho de tomate e queijo gratinado por cima, batatas rústicas, prato branco, luz natural, close apetitoso</p>
-        <button type="button" class="copy">Copiar prompt</button>
-      </div>
     </section>
   </div>
 </article>
@@ -957,11 +981,6 @@ img { max-width: 100%; }
         <li>Recheie com a carne bem cozida e enrole.</li>
         <li>Cubra com molho e muçarela. Air fryer a 180&nbsp;°C por 6 minutos.</li>
       </ol>
-      <div class="prompt">
-        <h4>Prompt da foto</h4>
-        <p class="prompt-text">Foto profissional de comida, panquecas enroladas recheadas com carne, cobertas com molho de tomate e queijo gratinado dourado, refratário pequeno, luz natural quente, close apetitoso</p>
-        <button type="button" class="copy">Copiar prompt</button>
-      </div>
     </section>
   </div>
 </article>
@@ -996,11 +1015,6 @@ img { max-width: 100%; }
         <li>Empane o bife e asse a 200&nbsp;°C por 12 minutos, até ficar bem passado.</li>
         <li>Molho, muçarela e parmesão, mais 4 minutos.</li>
       </ol>
-      <div class="prompt">
-        <h4>Prompt da foto</h4>
-        <p class="prompt-text">Foto profissional de comida, bife à parmegiana grande e gratinado, batatas fritas douradas, arroz e feijão, prato branco, mesa festiva, luz natural, close apetitoso</p>
-        <button type="button" class="copy">Copiar prompt</button>
-      </div>
     </section>
   </div>
 </article>
@@ -1044,47 +1058,21 @@ img { max-width: 100%; }
 
 <script>
 (function () {
-  // Copiar o prompt da foto
-  document.querySelectorAll('.copy').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var box = btn.closest('.prompt');
-      var el = box ? box.querySelector('.prompt-text') : null;
-      if (!el) return;
-      var text = el.textContent.trim();
-      function done(msg) {
-        btn.textContent = msg;
-        btn.classList.add('ok');
-        setTimeout(function () { btn.textContent = 'Copiar prompt'; btn.classList.remove('ok'); }, 2000);
-      }
-      function fallback() {
-        try {
-          var range = document.createRange();
-          range.selectNodeContents(el);
-          var sel = window.getSelection();
-          sel.removeAllRanges();
-          sel.addRange(range);
-          done('Texto selecionado, copie com Ctrl+C');
-        } catch (e) {
-          done('Não deu para copiar');
-        }
-      }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(function () { done('Copiado'); }).catch(fallback);
-      } else {
-        fallback();
-      }
-    });
-  });
-
   // Lista de compras: marcações salvas só neste aparelho
-  var KEY = 'livrinho-mari-compras-v1';
+  var KEY = 'livrinho-mari-compras-v2';
   var boxes = Array.prototype.slice.call(document.querySelectorAll('.shop input[type="checkbox"]'));
   var saved = {};
   try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
-  var count = document.getElementById('shop-count');
+  var total = document.getElementById('shop-count');
   function update() {
     var n = boxes.filter(function (b) { return b.checked; }).length;
-    if (count) count.textContent = n + ' de ' + boxes.length + ' no carrinho';
+    if (total) total.textContent = n + ' de ' + boxes.length + ' itens no carrinho';
+    document.querySelectorAll('.trip').forEach(function (trip) {
+      var list = trip.querySelectorAll('input[type="checkbox"]');
+      var done = trip.querySelectorAll('input[type="checkbox"]:checked').length;
+      var out = trip.querySelector('[data-count]');
+      if (out) out.textContent = done === list.length ? 'tudo comprado' : done + ' de ' + list.length;
+    });
   }
   boxes.forEach(function (b) {
     if (saved[b.id]) b.checked = true;
