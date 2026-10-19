@@ -1,0 +1,1110 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Livrinho da Mari</title>
+<meta name="description" content="Quinze dias de comidinhas para a Mari e para a Lala, de 20/10 a 03/11: cardápio, receitas, lista de compras e fotos dos pratos.">
+<meta name="theme-color" content="#F2DED7">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Livrinho da Mari">
+<meta property="og:description" content="Quinze dias de comidinhas para a Lala, de 20/10 a 03/11.">
+<meta property="og:image" content="https://josercf.github.io/livrinho-da-mari/img/capa.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='36' r='24' fill='%23C43B21'/%3E%3Cpath d='M32 14c-5-7-14-6-16 0 7 2 12 1 16 0 4 1 9 2 16 0-2-6-11-7-16 0z' fill='%234E7A3B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Young+Serif&display=swap">
+<style>
+/* Layout: um livrinho em rolagem única. A capa fica sobre o fundo rosa-poeira; cada bloco de apoio e cada dia é uma "folha" branca. Coluna de leitura de ~68ch, receita ao lado do cardápio em telas largas. */
+:root {
+  --bg: #F2DED7;          /* papel rosa-poeira da capa e do fundo */
+  --surface: #FFFCFA;     /* folha branca de cada página */
+  --surface-2: #F8ECE6;   /* preenchimento suave do cardápio */
+  --fg: #2C2320;
+  --muted: #74625B;
+  --line: #E9D5CD;
+  --tomato: #C43B21;      /* molho de tomate, o protagonista do livrinho */
+  --tomato-soft: #F8DCD4;
+  --leaf: #4E7A3B;        /* espinafre escondido no molho */
+  --leaf-soft: #E4EEDB;
+  --yolk: #F0B429;        /* gema do ovo */
+  --yolk-soft: #FBF0D0;
+  --egg-white: #FFFDF8;
+  --on-accent: #FFFFFF;
+  --shadow: 0 10px 30px rgba(120, 70, 55, .10);
+  --font-display: 'Young Serif', Georgia, 'Times New Roman', serif;
+  --font-body: 'Nunito', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #221716; --surface: #2E2220; --surface-2: #3A2B27;
+    --fg: #F4EAE4; --muted: #B9A79D; --line: #463530;
+    --tomato: #F2715A; --tomato-soft: #4A2A24;
+    --leaf: #93C279; --leaf-soft: #2A3A22;
+    --yolk: #F5C659; --yolk-soft: #403622;
+    --egg-white: #F1E6DD; --on-accent: #221716;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #221716; --surface: #2E2220; --surface-2: #3A2B27;
+  --fg: #F4EAE4; --muted: #B9A79D; --line: #463530;
+  --tomato: #F2715A; --tomato-soft: #4A2A24;
+  --leaf: #93C279; --leaf-soft: #2A3A22;
+  --yolk: #F5C659; --yolk-soft: #403622;
+  --egg-white: #F1E6DD; --on-accent: #221716;
+  --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 56px;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg);
+}
+.wrap { max-width: 880px; margin: 0 auto; }
+a { color: var(--tomato); }
+h1, h2, h3 { text-wrap: balance; }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--tomato); outline-offset: 2px; }
+
+/* Capa */
+.cover { padding-block: 52px 36px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px 28px; align-items: start; }
+.eyebrow { font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--tomato); }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(46px, 8.5vw, 80px); line-height: .98; margin: 12px 0 10px; letter-spacing: -.01em; }
+.sub { font-family: var(--font-display); font-size: clamp(21px, 3.2vw, 27px); color: var(--tomato); margin: 0 0 18px; line-height: 1.25; }
+.cover-meta { display: flex; flex-wrap: wrap; gap: 6px 10px; font-size: 14px; color: var(--muted); font-weight: 700; margin-bottom: 20px; }
+.cover-meta span { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; }
+.lead { max-width: 60ch; font-size: 18px; }
+.mark { width: 150px; height: auto; max-width: 100%; justify-self: end; margin-top: 10px; }
+.mark .tomato { fill: var(--tomato); }
+.mark .leaf { fill: var(--leaf); }
+.mark .vein { stroke: var(--leaf-soft); stroke-width: 2; fill: none; }
+.mark .shine { fill: var(--on-accent); opacity: .35; }
+.mark .white { fill: var(--egg-white); stroke: var(--line); stroke-width: 2; }
+.mark .yolk { fill: var(--yolk); }
+@media (max-width: 600px) {
+  .cover { grid-template-columns: minmax(0, 1fr); padding-top: 36px; }
+  .mark { justify-self: start; width: 120px; order: -1; margin-top: 0; }
+}
+
+/* Navegação dos dias */
+.daynav { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 8px); z-index: 5; margin-bottom: 8px; }
+.daynav ul {
+  list-style: none; margin: 0; padding: 6px; display: flex; gap: 2px; overflow-x: auto;
+  scrollbar-width: none; background: var(--surface); border: 1px solid var(--line);
+  border-radius: 999px; box-shadow: var(--shadow);
+}
+.daynav ul::-webkit-scrollbar { display: none; }
+.daynav li { flex: none; display: flex; align-items: center; }
+.daynav a {
+  display: inline-flex; align-items: center; justify-content: center; height: 36px; min-width: 36px;
+  padding: 0 11px; border-radius: 999px; font-weight: 800; font-size: 14px; color: var(--fg);
+  text-decoration: none; white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+.daynav a.num { padding: 0; width: 32px; min-width: 32px; }
+.daynav a:hover { background: var(--tomato-soft); color: var(--tomato); }
+.daynav .sep { width: 1px; height: 22px; background: var(--line); margin: 0 4px; }
+.daynav .lbl { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 0 4px 0 8px; }
+
+/* Folhas */
+.sheet {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
+  padding: 28px clamp(18px, 4vw, 40px) 30px; box-shadow: var(--shadow); min-width: 0;
+}
+.sec-head { display: flex; align-items: baseline; gap: 10px 14px; flex-wrap: wrap; margin: 44px 0 14px; }
+.sec-head h2, .week { font-family: var(--font-display); font-weight: 400; font-size: clamp(27px, 4vw, 34px); margin: 0; line-height: 1.15; }
+.sec-head .when, .week .when { color: var(--muted); font-weight: 700; font-size: 15px; }
+.sec-intro { color: var(--muted); max-width: 64ch; margin-bottom: 20px; }
+.trio { display: inline-flex; gap: 4px; vertical-align: middle; margin-right: 6px; }
+.trio i { width: 9px; height: 9px; border-radius: 50%; display: block; }
+.trio i:nth-child(1) { background: var(--tomato); }
+.trio i:nth-child(2) { background: var(--yolk); }
+.trio i:nth-child(3) { background: var(--leaf); }
+
+/* Nutrientes */
+.nutri { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.nutri > div { padding: 16px 18px; border-radius: 14px; background: var(--surface-2); min-width: 0; }
+.nutri b { display: block; font-family: var(--font-display); font-weight: 400; font-size: 21px; line-height: 1.2; margin-bottom: 4px; }
+.nutri .src { color: var(--tomato); font-weight: 800; font-size: 14px; }
+.nutri p { margin-top: 8px; font-size: 15px; color: var(--muted); }
+.note { margin-top: 18px; padding: 12px 16px; border-left: 4px solid var(--yolk); background: var(--yolk-soft); border-radius: 0 10px 10px 0; font-size: 15px; }
+
+/* Regras */
+.rules { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.rules li { position: relative; padding-left: 30px; font-weight: 600; }
+.rules li::before { content: ""; position: absolute; left: 0; top: .45em; width: 14px; height: 14px; border-radius: 50%; background: var(--leaf); }
+.rules li::after { content: ""; position: absolute; left: 4px; top: calc(.45em + 3px); width: 5px; height: 8px; border-right: 2px solid var(--leaf-soft); border-bottom: 2px solid var(--leaf-soft); transform: rotate(45deg); }
+.howto { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.howto span { font-size: 14px; font-weight: 700; background: var(--leaf-soft); color: var(--fg); border-radius: 999px; padding: 5px 12px; }
+
+/* Lista de compras */
+.shop-bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; font-size: 14px; color: var(--muted); font-weight: 700; }
+.shop-bar button { font: inherit; font-weight: 800; font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1.5px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
+.shop-bar button:hover { border-color: var(--tomato); color: var(--tomato); }
+.shop { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 22px 36px; }
+.shop > div { min-width: 0; }
+.shop h3 { font-family: var(--font-display); font-weight: 400; font-size: 20px; margin: 0 0 6px; padding-bottom: 6px; border-bottom: 2px solid var(--tomato-soft); }
+.shop ul { list-style: none; margin: 0; padding: 0; }
+.shop li { border-bottom: 1px dashed var(--line); }
+.shop label { display: flex; align-items: center; gap: 10px; padding: 8px 0; cursor: pointer; }
+.shop input { width: 20px; height: 20px; accent-color: var(--tomato); flex: none; margin: 0; }
+.shop .item { min-width: 0; }
+.shop .qty { margin-left: auto; color: var(--muted); font-weight: 700; font-size: 14px; white-space: nowrap; font-variant-numeric: tabular-nums; padding-left: 10px; }
+.shop input:checked ~ .item { text-decoration: line-through; color: var(--muted); }
+.shop-note { margin-top: 18px; font-size: 15px; color: var(--muted); }
+
+/* Semanas e dias */
+.week { margin: 44px 0 14px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.day { margin-top: 16px; scroll-margin-top: 72px; }
+.day-head { display: flex; gap: 18px; align-items: flex-start; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+.day-n { font-family: var(--font-display); font-size: 52px; line-height: .9; color: var(--tomato); min-width: 52px; text-align: center; font-variant-numeric: tabular-nums; }
+.day-n small { display: block; font-family: var(--font-body); font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.day-title { min-width: 0; }
+.day-date { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.day h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(25px, 3.6vw, 31px); margin: 0; line-height: 1.12; }
+.day-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 24px 32px; }
+@media (max-width: 720px) { .day-grid { grid-template-columns: minmax(0, 1fr); } }
+.menu { background: var(--surface-2); border-radius: 14px; padding: 16px 18px; align-self: start; }
+.menu h4, .recipe h4 { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; font-weight: 800; color: var(--muted); margin: 0 0 10px; }
+.menu dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 9px 12px; font-size: 15px; line-height: 1.45; }
+.menu dt { font-weight: 800; color: var(--tomato); white-space: nowrap; font-size: 13px; padding-top: 2px; }
+.menu dd { margin: 0; }
+.menu dd.rx { font-weight: 800; }
+.menu .legend { margin-top: 12px; font-size: 12px; color: var(--muted); font-weight: 700; }
+.recipe { min-width: 0; }
+.recipe .ing { margin-bottom: 18px; }
+.recipe ol { margin: 0 0 20px; padding: 0; list-style: none; counter-reset: step; display: grid; gap: 10px; }
+.recipe ol li { counter-increment: step; position: relative; padding-left: 38px; min-width: 0; }
+.recipe ol li::before {
+  content: counter(step); position: absolute; left: 0; top: 1px; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--tomato); color: var(--on-accent); font-weight: 800; font-size: 13px; display: grid; place-items: center;
+}
+.prompt { border: 1.5px dashed var(--yolk); border-radius: 12px; padding: 14px 16px; background: var(--yolk-soft); }
+.prompt h4 { color: var(--fg); }
+.prompt-text { font-size: 15px; margin-bottom: 12px; line-height: 1.5; }
+.copy { font: inherit; font-weight: 800; font-size: 14px; padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--fg); background: transparent; color: var(--fg); cursor: pointer; }
+.copy:hover, .copy.ok { background: var(--fg); color: var(--surface); }
+
+/* Receitas-base */
+.base { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px 28px; }
+.base > div { min-width: 0; }
+.base h3 { font-family: var(--font-display); font-weight: 400; font-size: 20px; margin: 0 0 6px; }
+.base p { font-size: 15px; }
+
+footer { margin-top: 44px; color: var(--muted); font-size: 15px; max-width: 60ch; }
+footer b { color: var(--fg); font-weight: 800; }
+
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+.photo { margin: 0 0 22px; width: 100%; height: min(440px, 66vw); border-radius: 14px; overflow: hidden; background: var(--surface-2); }
+.photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="cover">
+  <div>
+    <div class="eyebrow">Para a Mari · 18 semanas</div>
+    <h1>Livrinho da Mari</h1>
+    <p class="sub">Quinze dias de comidinhas para a Lala</p>
+    <div class="cover-meta">
+      <span>terça, 20/10 a terça, 03/11</span>
+      <span>porções para 1 pessoa</span>
+      <span>quase tudo na air fryer</span>
+    </div>
+    <p class="lead">Cada dia tem a sua página, com o cardápio inteiro, do café à ceia, a foto do prato principal, a receita passo a passo e o prompt que gerou a foto no Gemini. A lista de compras cobre os 15 dias de uma vez só.</p>
+  </div>
+  <svg class="mark" viewBox="0 0 160 76" width="160" height="76" aria-hidden="true">
+    <circle class="tomato" cx="36" cy="44" r="26"/>
+    <path class="leaf" d="M36 20 C30 12 20 13 18 20 C26 22 32 21 36 20 C40 21 46 22 54 20 C52 13 42 12 36 20 Z"/>
+    <circle class="shine" cx="26" cy="35" r="5"/>
+    <path class="white" d="M86 16 C104 14 116 30 112 48 C109 64 94 72 80 68 C66 64 60 50 64 36 C67 25 74 17 86 16 Z"/>
+    <circle class="yolk" cx="88" cy="44" r="10"/>
+    <path class="leaf" d="M120 66 C120 36 134 20 154 14 C156 36 146 60 120 66 Z"/>
+    <path class="vein" d="M123 62 C130 48 140 34 150 20"/>
+  </svg>
+</header>
+
+<nav class="daynav" aria-label="Ir para">
+  <ul>
+    <li><a href="#compras">Compras</a></li>
+    <li class="sep" aria-hidden="true"></li>
+    <li><span class="lbl">Sem. 1</span></li>
+    <li><a class="num" href="#dia-1">1</a></li>
+    <li><a class="num" href="#dia-2">2</a></li>
+    <li><a class="num" href="#dia-3">3</a></li>
+    <li><a class="num" href="#dia-4">4</a></li>
+    <li><a class="num" href="#dia-5">5</a></li>
+    <li><a class="num" href="#dia-6">6</a></li>
+    <li><a class="num" href="#dia-7">7</a></li>
+    <li class="sep" aria-hidden="true"></li>
+    <li><span class="lbl">Sem. 2</span></li>
+    <li><a class="num" href="#dia-8">8</a></li>
+    <li><a class="num" href="#dia-9">9</a></li>
+    <li><a class="num" href="#dia-10">10</a></li>
+    <li><a class="num" href="#dia-11">11</a></li>
+    <li><a class="num" href="#dia-12">12</a></li>
+    <li><a class="num" href="#dia-13">13</a></li>
+    <li><a class="num" href="#dia-14">14</a></li>
+    <li><a class="num" href="#dia-15">15</a></li>
+    <li class="sep" aria-hidden="true"></li>
+    <li><a href="#base">Receitas-base</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<div class="sec-head" id="nutrientes">
+  <h2><span class="trio" aria-hidden="true"><i></i><i></i><i></i></span>O que os pratos entregam</h2>
+</div>
+<section class="sheet">
+  <p class="sec-intro">O cardápio gira em torno do que a Lala mais precisa agora. São comidas de todo dia: ovo, carne, feijão, folha escura, leite e semente.</p>
+  <div class="nutri">
+    <div>
+      <b>Colina</b>
+      <span class="src">ovos</span>
+      <p>Entra na formação do cérebro e da memória da bebê. Por isso tem ovo em quase todo café da manhã.</p>
+    </div>
+    <div>
+      <b>Ômega-3</b>
+      <span class="src">chia, linhaça, nozes e ovos</span>
+      <p>Ajuda a formar o cérebro e a retina. A chia e a linhaça entram na vitamina e no empanado. O DHA mesmo vem do suplemento que a obstetra indicar.</p>
+    </div>
+    <div>
+      <b>Ferro</b>
+      <span class="src">carne, feijão, folhas escuras</span>
+      <p>Carrega oxigênio para a Mari e para a Lala. A laranja do café ajuda o corpo a aproveitar o ferro do feijão.</p>
+    </div>
+    <div>
+      <b>Cálcio e iodo</b>
+      <span class="src">leite, queijo, iogurte</span>
+      <p>Cálcio para os ossinhos. Iodo para a tireoide, que comanda o desenvolvimento do cérebro. O sal iodado da lista também conta.</p>
+    </div>
+    <div>
+      <b>Proteína</b>
+      <span class="src">frango, carne, peixe e ovos</span>
+      <p>É o tijolo de tudo que está crescendo aí dentro. Tem em todo almoço e em todo jantar.</p>
+    </div>
+    <div>
+      <b>Ácido fólico</b>
+      <span class="src">feijão, lentilha, espinafre e laranja</span>
+      <p>Protege o sistema nervoso da bebê. Continue o suplemento que a obstetra passou.</p>
+    </div>
+  </div>
+  <p class="note">Confirme com a obstetra a suplementação de ácido fólico, ferro e DHA. O livrinho ajuda, mas quem decide a dose é ela.</p>
+</section>
+
+<div class="sec-head" id="seguranca">
+  <h2><span class="trio" aria-hidden="true"><i></i><i></i><i></i></span>Regras de segurança na gestação</h2>
+</div>
+<section class="sheet">
+  <p class="sec-intro">Cinco regras que valem para todos os 15 dias.</p>
+  <ul class="rules">
+    <li>Carnes, frango, peixe e ovos sempre bem cozidos. Nada malpassado ou cru.</li>
+    <li>Só leite e queijos pasteurizados.</li>
+    <li>Peixe só tilápia e pescada branca, sempre bem assados.</li>
+    <li>Frutas e verduras bem lavadas e higienizadas.</li>
+    <li>Sem sardinha e sem atum.</li>
+  </ul>
+  <div class="howto">
+    <span>Quase tudo vai na air fryer</span>
+    <span>Porções para 1 pessoa</span>
+    <span>Sal sempre iodado</span>
+  </div>
+</section>
+
+<div class="sec-head" id="compras">
+  <h2><span class="trio" aria-hidden="true"><i></i><i></i><i></i></span>Lista de compras</h2>
+  <span class="when">segunda, 19/10</span>
+</div>
+<section class="sheet">
+  <p class="sec-intro">Tudo para os 15 dias, para 1 pessoa. Marque o que já entrou no carrinho. A lista fica salva só neste aparelho.</p>
+  <div class="shop-bar">
+    <span id="shop-count">0 de 44 no carrinho</span>
+    <button type="button" id="shop-clear">Limpar marcações</button>
+  </div>
+  <div class="shop">
+    <div>
+      <h3>Açougue e peixaria</h3>
+      <ul>
+        <li><label><input type="checkbox" id="c01"><span class="item">Peito de frango</span><span class="qty">2 kg</span></label></li>
+        <li><label><input type="checkbox" id="c02"><span class="item">Bife de patinho</span><span class="qty">1,5 kg</span></label></li>
+        <li><label><input type="checkbox" id="c03"><span class="item">Carne moída de patinho</span><span class="qty">1 kg</span></label></li>
+        <li><label><input type="checkbox" id="c04"><span class="item">Filé de tilápia e pescada branca</span><span class="qty">600 g + 300 g</span></label></li>
+        <li><label><input type="checkbox" id="c05"><span class="item">Linhaça dourada moída e nozes</span><span class="qty">200 g de cada</span></label></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Laticínios e ovos</h3>
+      <ul>
+        <li><label><input type="checkbox" id="c06"><span class="item">Ovos</span><span class="qty">30 unidades</span></label></li>
+        <li><label><input type="checkbox" id="c07"><span class="item">Leite pasteurizado</span><span class="qty">6 L</span></label></li>
+        <li><label><input type="checkbox" id="c08"><span class="item">Iogurte natural ou de morango</span><span class="qty">15 potes</span></label></li>
+        <li><label><input type="checkbox" id="c09"><span class="item">Muçarela pasteurizada</span><span class="qty">800 g</span></label></li>
+        <li><label><input type="checkbox" id="c10"><span class="item">Parmesão ralado</span><span class="qty">200 g</span></label></li>
+        <li><label><input type="checkbox" id="c11"><span class="item">Requeijão</span><span class="qty">1 pote</span></label></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Hortifrúti</h3>
+      <ul>
+        <li><label><input type="checkbox" id="c12"><span class="item">Banana</span><span class="qty">2 dúzias</span></label></li>
+        <li><label><input type="checkbox" id="c13"><span class="item">Morango</span><span class="qty">3 caixas</span></label></li>
+        <li><label><input type="checkbox" id="c14"><span class="item">Laranja</span><span class="qty">2 kg</span></label></li>
+        <li><label><input type="checkbox" id="c15"><span class="item">Maçã</span><span class="qty">8 unidades</span></label></li>
+        <li><label><input type="checkbox" id="c16"><span class="item">Manga</span><span class="qty">3 unidades</span></label></li>
+        <li><label><input type="checkbox" id="c17"><span class="item">Mamão</span><span class="qty">2 unidades</span></label></li>
+        <li><label><input type="checkbox" id="c18"><span class="item">Polpa de acerola</span><span class="qty">1 pacote</span></label></li>
+        <li><label><input type="checkbox" id="c19"><span class="item">Batata</span><span class="qty">2 kg</span></label></li>
+        <li><label><input type="checkbox" id="c20"><span class="item">Batata-doce</span><span class="qty">1 kg</span></label></li>
+        <li><label><input type="checkbox" id="c21"><span class="item">Cenoura</span><span class="qty">1 kg</span></label></li>
+        <li><label><input type="checkbox" id="c22"><span class="item">Abóbora cabotiá</span><span class="qty">1 pedaço de 1 kg</span></label></li>
+        <li><label><input type="checkbox" id="c23"><span class="item">Espinafre</span><span class="qty">3 maços</span></label></li>
+        <li><label><input type="checkbox" id="c24"><span class="item">Brócolis</span><span class="qty">3 maços</span></label></li>
+        <li><label><input type="checkbox" id="c25"><span class="item">Couve</span><span class="qty">2 maços</span></label></li>
+        <li><label><input type="checkbox" id="c26"><span class="item">Tomate</span><span class="qty">1 kg</span></label></li>
+        <li><label><input type="checkbox" id="c27"><span class="item">Cebola e alho</span><span class="qty">a gosto</span></label></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Mercearia</h3>
+      <ul>
+        <li><label><input type="checkbox" id="c28"><span class="item">Arroz</span><span class="qty">2 kg</span></label></li>
+        <li><label><input type="checkbox" id="c29"><span class="item">Feijão carioca</span><span class="qty">1 kg</span></label></li>
+        <li><label><input type="checkbox" id="c30"><span class="item">Lentilha</span><span class="qty">500 g</span></label></li>
+        <li><label><input type="checkbox" id="c31"><span class="item">Grão-de-bico</span><span class="qty">500 g</span></label></li>
+        <li><label><input type="checkbox" id="c32"><span class="item">Macarrão</span><span class="qty">1 kg</span></label></li>
+        <li><label><input type="checkbox" id="c33"><span class="item">Massa de lasanha</span><span class="qty">1 pacote</span></label></li>
+        <li><label><input type="checkbox" id="c34"><span class="item">Molho de tomate</span><span class="qty">6 caixas</span></label></li>
+        <li><label><input type="checkbox" id="c35"><span class="item">Farinha panko</span><span class="qty">2 pacotes</span></label></li>
+        <li><label><input type="checkbox" id="c36"><span class="item">Farinha de trigo</span><span class="qty">1 kg</span></label></li>
+        <li><label><input type="checkbox" id="c37"><span class="item">Aveia em flocos</span><span class="qty">500 g</span></label></li>
+        <li><label><input type="checkbox" id="c38"><span class="item">Goma de tapioca</span><span class="qty">500 g</span></label></li>
+        <li><label><input type="checkbox" id="c39"><span class="item">Pão de forma integral</span><span class="qty">2 pacotes</span></label></li>
+        <li><label><input type="checkbox" id="c40"><span class="item">Milho em lata</span><span class="qty">2 latas</span></label></li>
+        <li><label><input type="checkbox" id="c41"><span class="item">Chia</span><span class="qty">200 g</span></label></li>
+        <li><label><input type="checkbox" id="c42"><span class="item">Castanha-de-caju e castanha-do-pará</span><span class="qty">300 g</span></label></li>
+        <li><label><input type="checkbox" id="c43"><span class="item">Mel, achocolatado e cacau em pó</span><span class="qty">1 de cada</span></label></li>
+        <li><label><input type="checkbox" id="c44"><span class="item">Azeite e sal iodado</span><span class="qty">1 de cada</span></label></li>
+      </ul>
+    </div>
+  </div>
+  <p class="shop-note">Congele em porções as carnes e o peixe que forem usados depois do dia 25/10.</p>
+</section>
+
+<h2 class="week" id="semana-1"><span class="trio" aria-hidden="true"><i></i><i></i><i></i></span>Semana 1 <span class="when">20/10 a 26/10</span></h2>
+
+<article class="day sheet" id="dia-1">
+  <header class="day-head">
+    <div class="day-n"><small>dia</small>1</div>
+    <div class="day-title">
+      <div class="day-date">terça, 20/10</div>
+      <h3>Frango à parmegiana</h3>
+    </div>
+  </header>
+  <figure class="photo"><img src="img/dia-01.webp" alt="Foto do prato: frango à parmegiana" width="1280" height="960" loading="eager" decoding="async" onerror="this.parentElement.hidden=true"></figure>
+  <div class="day-grid">
+    <section class="menu">
+      <h4>Cardápio do dia</h4>
+      <dl>
+        <dt>Café</dt><dd>panqueca de banana com aveia e mel, e um copo de leite com achocolatado</dd>
+        <dt>Lanche da manhã</dt><dd>iogurte com morango picado</dd>
+        <dt>Almoço</dt><dd class="rx">frango à parmegiana com arroz, feijão e espinafre escondido no molho</dd>
+        <dt>Lanche da tarde</dt><dd>maçã com castanha-de-caju</dd>
+        <dt>Jantar</dt><dd>sopa cremosa de abóbora com frango desfiado e torradinha com queijo</dd>
+        <dt>Ceia</dt><dd>copo de leite morno com mel</dd>
+      </dl>
+    </section>
+    <section class="recipe">
+      <h4>Ingredientes do almoço</h4>
+      <p class="ing">1 filé de frango aberto, 1 ovo, 3 colheres de panko, 2 colheres de farinha de trigo, 1/2 xícara de molho de tomate, 1 punhado de espinafre, 2 fatias de muçarela, parmesão ralado, sal iodado.</p>
+      <h4>Modo de preparo</h4>
+      <ol>
+        <li>Bata o espinafre com o molho de tomate no liquidificador e aqueça por 5 minutos.</li>
+        <li>Tempere o frango com sal, passe na farinha, no ovo batido e no panko.</li>
+        <li>Air fryer a 200&nbsp;°C por 12 minutos, virando na metade. Corte no meio e confira se não está rosado.</li>
+        <li>Cubra com o molho, a muçarela e o parmesão. Volte por 4 minutos até gratinar.</li>
+      </ol>
+      <div class="prompt">
+        <h4>Prompt da foto</h4>
+        <p class="prompt-text">Foto profissional de comida, filé de frango à parmegiana dourado e crocante, coberto com molho de tomate vermelho brilhante e muçarela derretida e borbulhante, ao lado de arroz branco soltinho e feijão, prato branco, mesa de madeira, luz natural, close apetitoso</p>
+        <button type="button" class="copy">Copiar prompt</button>
+      </div>
+    </section>
+  </div>
+</article>
+
+<article class="day sheet" id="dia-2">
+  <header class="day-head">
+    <div class="day-n"><small>dia</small>2</div>
+    <div class="day-title">
+      <div class="day-date">quarta, 21/10</div>
+      <h3>Macarrão com almôndegas</h3>
+    </div>
+  </header>
+  <figure class="photo"><img src="img/dia-02.webp" alt="Foto do prato: macarrão com almôndegas" width="1280" height="960" loading="lazy" decoding="async" onerror="this.parentElement.hidden=true"></figure>
+  <div class="day-grid">
+    <section class="menu">
+      <h4>Cardápio do dia</h4>
+      <dl>
+        <dt>Café</dt><dd>ovos mexidos cremosos com queijo e pão integral, e suco de laranja</dd>
+        <dt>Lanche da manhã</dt><dd>vitamina de banana com leite e 1 colher de chia</dd>
+        <dt>Almoço</dt><dd class="rx">macarrão com almôndegas ao molho de tomate com cenoura escondida</dd>
+        <dt>Lanche da tarde</dt><dd>mamão com mel</dd>
+        <dt>Jantar</dt><dd>tapioca de frango com requeijão</dd>
+        <dt>Ceia</dt><dd>iogurte natural</dd>
+      </dl>
+    </section>
+    <section class="recipe">
+      <h4>Ingredientes do almoço</h4>
+      <p class="ing">150 g de carne moída de patinho, 1/2 cenoura ralada fina, 1 ovo, 1 colher de aveia, 1 colher de parmesão, 1 xícara de molho de tomate, 80 g de macarrão, sal iodado.</p>
+      <h4>Modo de preparo</h4>
+      <ol>
+        <li>Misture a carne, a cenoura, o ovo, a aveia, o parmesão e o sal. Faça bolinhas.</li>
+        <li>Air fryer a 190&nbsp;°C por 12 minutos, chacoalhando na metade, até ficarem bem assadas por dentro.</li>
+        <li>Cozinhe o macarrão. Aqueça o molho, junte as almôndegas por 5 minutos e sirva por cima.</li>
+      </ol>
+      <div class="prompt">
+        <h4>Prompt da foto</h4>
+        <p class="prompt-text">Foto profissional de comida, prato de espaguete com almôndegas suculentas ao molho de tomate, parmesão ralado por cima, folhinha de manjericão, prato fundo branco, luz natural quente, close apetitoso</p>
+        <button type="button" class="copy">Copiar prompt</button>
+      </div>
+    </section>
+  </div>
+</article>
+
+<article class="day sheet" id="dia-3">
+  <header class="day-head">
+    <div class="day-n"><small>dia</small>3</div>
+    <div class="day-title">
+      <div class="day-date">quinta, 22/10</div>
+      <h3>Hambúrguer caseiro</h3>
+    </div>
+  </header>
+  <figure class="photo"><img src="img/dia-03.webp" alt="Foto do prato: hambúrguer caseiro" width="1280" height="960" loading="lazy" decoding="async" onerror="this.parentElement.hidden=true"></figure>
+  <div class="day-grid">
+    <section class="menu">
+      <h4>Cardápio do dia</h4>
+      <dl>
+        <dt>Café</dt><dd>misto quente de pão integral com muçarela, e leite com cacau</dd>
+        <dt>Lanche da manhã</dt><dd>morangos com iogurte e mel</dd>
+        <dt>Almoço</dt><dd>arroz, feijão, bife acebolado e batata rústica na air fryer</dd>
+        <dt>Lanche da tarde</dt><dd>banana com aveia e canela</dd>
+        <dt>Jantar</dt><dd class="rx">hambúrguer caseiro com queijo, alface e tomate</dd>
+        <dt>Ceia</dt><dd>leite morno</dd>
+      </dl>
+    </section>
+    <section class="recipe">
+      <h4>Ingredientes do jantar</h4>
+      <p class="ing">150 g de carne moída de patinho, 1 colher de aveia, sal iodado, 1 fatia de muçarela, 1 pão de hambúrguer ou 2 fatias de pão integral, alface e tomate bem lavados.</p>
+      <h4>Modo de preparo</h4>
+      <ol>
+        <li>Tempere a carne com sal e aveia e modele um disco.</li>
+        <li>Air fryer a 200&nbsp;°C por 10 a 12 minutos, virando na metade, até ficar bem passado, sem rosado no meio.</li>
+        <li>Coloque o queijo por cima no último minuto. Monte com alface e tomate.</li>
+      </ol>
+      <div class="prompt">
+        <h4>Prompt da foto</h4>
+        <p class="prompt-text">Foto profissional de comida, hambúrguer caseiro alto com queijo derretendo pelas bordas, alface fresca e tomate, pão dourado, batatas rústicas ao lado, tábua de madeira, luz natural, close apetitoso</p>
+        <button type="button" class="copy">Copiar prompt</button>
+      </div>
+    </section>
+  </div>
+</article>
+
+<article class="day sheet" id="dia-4">
+  <header class="day-head">
+    <div class="day-n"><small>dia</small>4</div>
+    <div class="day-title">
+      <div class="day-date">sexta, 23/10</div>
+      <h3>Nuggets de tilápia</h3>
+    </div>
+  </header>
+  <figure class="photo"><img src="img/dia-04.webp" alt="Foto do prato: nuggets de tilápia" width="1280" height="960" loading="lazy" decoding="async" onerror="this.parentElement.hidden=true"></figure>
+  <div class="day-grid">
+    <section class="menu">
+      <h4>Cardápio do dia</h4>
+      <dl>
+        <dt>Café</dt><dd>tapioca com ovo e queijo, e suco de laranja com acerola</dd>
+        <dt>Lanche da manhã</dt><dd>iogurte com castanhas</dd>
+        <dt>Almoço</dt><dd class="rx">nuggets de tilápia com purê de batata e brócolis gratinado</dd>
+        <dt>Lanche da tarde</dt><dd>manga picada</dd>
+        <dt>Jantar</dt><dd>canja de frango com arroz e cenoura</dd>
+        <dt>Ceia</dt><dd>leite com mel</dd>
+      </dl>
+    </section>
+    <section class="recipe">
+      <h4>Ingredientes do almoço</h4>
+      <p class="ing">150 g de filé de tilápia em tiras, 1 ovo, panko, farinha de trigo, sal iodado, limão. Purê: 2 batatas, leite e 1 colher de requeijão.</p>
+      <h4>Modo de preparo</h4>
+      <ol>
+        <li>Tempere as tiras de tilápia com sal e limão. Passe na farinha, no ovo e no panko.</li>
+        <li>Air fryer a 200&nbsp;°C por 10 minutos, virando na metade. O peixe deve ficar opaco e soltando em lascas.</li>
+        <li>Cozinhe as batatas, amasse com leite e requeijão.</li>
+        <li>Brócolis cozido com parmesão por cima, 3 minutos na air fryer.</li>
+      </ol>
+      <div class="prompt">
+        <h4>Prompt da foto</h4>
+        <p class="prompt-text">Foto profissional de comida, nuggets de peixe branco dourados e crocantes, purê de batata cremoso e brócolis verde gratinado com queijo, molhinho ao lado, prato branco, luz natural, close apetitoso</p>
+        <button type="button" class="copy">Copiar prompt</button>
+      </div>
+    </section>
+  </div>
+</article>
+
+<article class="day sheet" id="dia-5">
+  <header class="day-head">
+    <div class="day-n"><small>dia</small>5</div>
+    <div class="day-title">
+      <div class="day-date">sábado, 24/10</div>
+      <h3>Carne à parmegiana</h3>
+    </div>
+  </header>
+  <figure class="photo"><img src="img/dia-05.webp" alt="Foto do prato: carne à parmegiana" width="1280" height="960" loading="lazy" decoding="async" onerror="this.parentElement.hidden=true"></figure>
+  <div class="day-grid">
+    <section class="menu">
+      <h4>Cardápio do dia</h4>
+      <dl>
+        <dt>Café</dt><dd>pão de queijo de frigideira (ovo, tapioca e queijo) e vitamina de morango</dd>
+        <dt>Lanche da manhã</dt><dd>banana com mel</dd>
+        <dt>Almoço</dt><dd class="rx">bife à parmegiana com arroz, feijão e batata assada</dd>
+        <dt>Lanche da tarde</dt><dd>iogurte com chia</dd>
+        <dt>Jantar</dt><dd>omelete de forno com espinafre, tomate e queijo</dd>
+        <dt>Ceia</dt><dd>leite com cacau</dd>
+      </dl>
+    </section>
+    <section class="recipe">
+      <h4>Ingredientes do almoço</h4>
+      <p class="ing">1 bife de patinho batido fino, 1 ovo, panko, farinha, molho de tomate com cenoura batida, 2 fatias de muçarela, parmesão.</p>
+      <h4>Modo de preparo</h4>
+      <ol>
+        <li>Bata a cenoura cozida com o molho de tomate e aqueça.</li>
+        <li>Empane o bife: farinha, ovo e panko.</li>
+        <li>Air fryer a 200&nbsp;°C por 12 minutos, virando na metade, até ficar bem passado.</li>
+        <li>Molho, muçarela e parmesão por cima, mais 4 minutos.</li>
+      </ol>
+      <div class="prompt">
+        <h4>Prompt da foto</h4>
+        <p class="prompt-text">Foto profissional de comida, bife à parmegiana gratinado com queijo dourado e borbulhante, molho de tomate vermelho escorrendo, arroz, feijão e batatas assadas, prato branco, luz natural, close apetitoso</p>
+        <button type="button" class="copy">Copiar prompt</button>
+      </div>
+    </section>
+  </div>
+</article>
+
+<article class="day sheet" id="dia-6">
+  <header class="day-head">
+    <div class="day-n"><small>dia</small>6</div>
+    <div class="day-title">
+      <div class="day-date">domingo, 25/10</div>
+      <h3>Lasanha de frango</h3>
+    </div>
+  </header>
+  <figure class="photo"><img src="img/dia-06.webp" alt="Foto do prato: lasanha de frango" width="1280" height="960" loading="lazy" decoding="async" onerror="this.parentElement.hidden=true"></figure>
+  <div class="day-grid">
+    <section class="menu">
+      <h4>Cardápio do dia</h4>
+      <dl>
+        <dt>Café</dt><dd>panqueca de aveia com morango e mel, e leite</dd>
+        <dt>Lanche da manhã</dt><dd>salada de frutas com iogurte</dd>
+        <dt>Almoço</dt><dd class="rx">lasanha de frango com molho de tomate e espinafre</dd>
+        <dt>Lanche da tarde</dt><dd>torrada com requeijão e suco de laranja</dd>
+        <dt>Jantar</dt><dd>caldinho de feijão com torradinhas e queijo ralado</dd>
+        <dt>Ceia</dt><dd>iogurte</dd>
+      </dl>
+    </section>
+    <section class="recipe">
+      <h4>Ingredientes do almoço</h4>
+      <p class="ing">200 g de frango cozido e desfiado, 1 maço pequeno de espinafre, 1 caixa de molho de tomate, massa de lasanha, 150 g de muçarela, parmesão.</p>
+      <h4>Modo de preparo</h4>
+      <ol>
+        <li>Refogue o frango com o molho e o espinafre picado por 5 minutos.</li>
+        <li>Em refratário pequeno, alterne massa, frango com molho e muçarela. Termine com queijo e parmesão.</li>
+        <li>Forno ou air fryer a 180&nbsp;°C por 25 minutos, coberto com papel-alumínio, e mais 5 minutos sem, para gratinar.</li>
+        <li>Rende 2 porções: guarde a outra para segunda.</li>
+      </ol>
+      <div class="prompt">
+        <h4>Prompt da foto</h4>
+        <p class="prompt-text">Foto profissional de comida, fatia de lasanha de frango com camadas visíveis, queijo gratinado dourado e molho de tomate, refratário ao fundo, luz natural quente, close apetitoso</p>
+        <button type="button" class="copy">Copiar prompt</button>
+      </div>
+    </section>
+  </div>
+</article>
+
+<article class="day sheet" id="dia-7">
+  <header class="day-head">
+    <div class="day-n"><small>dia</small>7</div>
+    <div class="day-title">
+      <div class="day-date">segunda, 26/10</div>
+      <h3>Escondidinho de carne</h3>
+    </div>
+  </header>
+  <figure class="photo"><img src="img/dia-07.webp" alt="Foto do prato: escondidinho de carne" width="1280" height="960" loading="lazy" decoding="async" onerror="this.parentElement.hidden=true"></figure>
+  <div class="day-grid">
+    <section class="menu">
+      <h4>Cardápio do dia</h4>
+      <dl>
+        <dt>Café</dt><dd>ovos mexidos com queijo, pão integral e suco de laranja com acerola</dd>
+        <dt>Lanche da manhã</dt><dd>vitamina de manga com leite</dd>
+        <dt>Almoço</dt><dd>lasanha de frango que sobrou do domingo, com salada de tomate</dd>
+        <dt>Lanche da tarde</dt><dd>maçã assada com canela e mel</dd>
+        <dt>Jantar</dt><dd class="rx">escondidinho de carne moída com purê de batata-doce e queijo</dd>
+        <dt>Ceia</dt><dd>leite morno</dd>
+      </dl>
+    </section>
+    <section class="recipe">
+      <h4>Ingredientes do jantar</h4>
+      <p class="ing">150 g de carne moída de patinho, 1/2 cebola, 1 batata-doce grande, 1 colher de requeijão, muçarela, sal iodado.</p>
+      <h4>Modo de preparo</h4>
+      <ol>
+        <li>Refogue a carne com cebola e sal até ficar bem cozida.</li>
+        <li>Cozinhe a batata-doce e amasse com o requeijão.</li>
+        <li>Num potinho, carne embaixo, purê em cima e muçarela.</li>
+        <li>Air fryer a 180&nbsp;°C por 8 minutos, até gratinar.</li>
+      </ol>
+      <div class="prompt">
+        <h4>Prompt da foto</h4>
+        <p class="prompt-text">Foto profissional de comida, escondidinho de carne em cumbuca de cerâmica, purê alaranjado de batata-doce coberto com queijo gratinado e dourado, colher tirando uma porção cremosa, luz natural, close apetitoso</p>
+        <button type="button" class="copy">Copiar prompt</button>
+      </div>
+    </section>
+  </div>
+</article>
+
+<h2 class="week" id="semana-2"><span class="trio" aria-hidden="true"><i></i><i></i><i></i></span>Semana 2 <span class="when">27/10 a 03/11</span></h2>
+
+<article class="day sheet" id="dia-8">
+  <header class="day-head">
+    <div class="day-n"><small>dia</small>8</div>
+    <div class="day-title">
+      <div class="day-date">terça, 27/10</div>
+      <h3>Tilápia à parmegiana</h3>
+    </div>
+  </header>
+  <figure class="photo"><img src="img/dia-08.webp" alt="Foto do prato: tilápia à parmegiana" width="1280" height="960" loading="lazy" decoding="async" onerror="this.parentElement.hidden=true"></figure>
+  <div class="day-grid">
+    <section class="menu">
+      <h4>Cardápio do dia</h4>
+      <dl>
+        <dt>Café</dt><dd>panqueca de banana com linhaça e mel, e leite com achocolatado</dd>
+        <dt>Lanche da manhã</dt><dd>iogurte com morango e chia</dd>
+        <dt>Almoço</dt><dd class="rx">tilápia à parmegiana com arroz, feijão e purê de batata</dd>
+        <dt>Lanche da tarde</dt><dd>banana com nozes picadas</dd>
+        <dt>Jantar</dt><dd>sopa de legumes com macarrão de letrinhas e frango desfiado</dd>
+        <dt>Ceia</dt><dd>leite morno com mel</dd>
+      </dl>
+    </section>
+    <section class="recipe">
+      <h4>Ingredientes do almoço</h4>
+      <p class="ing">1 filé de tilápia, 1 ovo, panko misturado com 1 colher de linhaça, farinha, molho de tomate com espinafre batido, 2 fatias de muçarela, parmesão.</p>
+      <h4>Modo de preparo</h4>
+      <ol>
+        <li>Tempere a tilápia com sal e limão. Farinha, ovo e panko com linhaça.</li>
+        <li>Air fryer a 200&nbsp;°C por 10 minutos, virando com cuidado na metade.</li>
+        <li>Molho, muçarela e parmesão por cima, mais 4 minutos.</li>
+      </ol>
+      <div class="prompt">
+        <h4>Prompt da foto</h4>
+        <p class="prompt-text">Foto profissional de comida, filé de peixe branco à parmegiana, empanado dourado, molho de tomate e muçarela derretida gratinada, purê de batata cremoso ao lado, prato branco, luz natural, close apetitoso</p>
+        <button type="button" class="copy">Copiar prompt</button>
+      </div>
+    </section>
+  </div>
+</article>
+
+<article class="day sheet" id="dia-9">
+  <header class="day-head">
+    <div class="day-n"><small>dia</small>9</div>
+    <div class="day-title">
+      <div class="day-date">quarta, 28/10</div>
+      <h3>Strogonoff de frango</h3>
+    </div>
+  </header>
+  <figure class="photo"><img src="img/dia-09.webp" alt="Foto do prato: strogonoff de frango" width="1280" height="960" loading="lazy" decoding="async" onerror="this.parentElement.hidden=true"></figure>
+  <div class="day-grid">
+    <section class="menu">
+      <h4>Cardápio do dia</h4>
+      <dl>
+        <dt>Café</dt><dd>tapioca com ovo mexido e queijo, e suco de laranja</dd>
+        <dt>Lanche da manhã</dt><dd>vitamina de morango com leite e aveia</dd>
+        <dt>Almoço</dt><dd class="rx">strogonoff de frango com arroz, batata palha assada e brócolis</dd>
+        <dt>Lanche da tarde</dt><dd>maçã com castanha-do-pará (1 unidade)</dd>
+        <dt>Jantar</dt><dd>pão integral com ovo, queijo e tomate na air fryer</dd>
+        <dt>Ceia</dt><dd>iogurte</dd>
+      </dl>
+    </section>
+    <section class="recipe">
+      <h4>Ingredientes do almoço</h4>
+      <p class="ing">150 g de peito de frango em cubos, 1/2 cebola, 1/2 xícara de molho de tomate, 2 colheres de requeijão ou creme de leite, milho, sal iodado. Batata palha: 1 batata ralada fina.</p>
+      <h4>Modo de preparo</h4>
+      <ol>
+        <li>Doure a cebola, junte o frango e cozinhe bem, até não ter partes rosadas.</li>
+        <li>Junte o molho e o milho, cozinhe 5 minutos e desligue com o requeijão.</li>
+        <li>Batata ralada, seca no pano, com fio de azeite: air fryer a 180&nbsp;°C por 15 minutos, mexendo.</li>
+      </ol>
+      <div class="prompt">
+        <h4>Prompt da foto</h4>
+        <p class="prompt-text">Foto profissional de comida, strogonoff de frango cremoso e rosado, arroz branco soltinho e batata palha dourada e crocante por cima, prato branco, luz natural, close apetitoso</p>
+        <button type="button" class="copy">Copiar prompt</button>
+      </div>
+    </section>
+  </div>
+</article>
+
+<article class="day sheet" id="dia-10">
+  <header class="day-head">
+    <div class="day-n"><small>dia</small>10</div>
+    <div class="day-title">
+      <div class="day-date">quinta, 29/10</div>
+      <h3>Coxinha de frango na air fryer</h3>
+    </div>
+  </header>
+  <figure class="photo"><img src="img/dia-10.webp" alt="Foto do prato: coxinha de frango na air fryer" width="1280" height="960" loading="lazy" decoding="async" onerror="this.parentElement.hidden=true"></figure>
+  <div class="day-grid">
+    <section class="menu">
+      <h4>Cardápio do dia</h4>
+      <dl>
+        <dt>Café</dt><dd>ovos mexidos com queijo, pão integral e vitamina de mamão</dd>
+        <dt>Lanche da manhã</dt><dd>iogurte com mel e nozes</dd>
+        <dt>Almoço</dt><dd>arroz, feijão, bife acebolado e couve refogada bem fininha</dd>
+        <dt>Lanche da tarde</dt><dd class="rx">coxinhas de frango na air fryer com suco de laranja e acerola</dd>
+        <dt>Jantar</dt><dd>creme de abóbora com queijo e torradinhas</dd>
+        <dt>Ceia</dt><dd>leite com cacau</dd>
+      </dl>
+    </section>
+    <section class="recipe">
+      <h4>Ingredientes das coxinhas</h4>
+      <p class="ing">200 g de frango cozido e desfiado, 1 colher de requeijão, 2 batatas cozidas e amassadas com 1 colher de farinha, 1 ovo, panko.</p>
+      <h4>Modo de preparo</h4>
+      <ol>
+        <li>Misture o frango com o requeijão.</li>
+        <li>Abra a massa de batata na mão, recheie e modele.</li>
+        <li>Passe no ovo e no panko. Air fryer a 200&nbsp;°C por 12 minutos, até dourar.</li>
+      </ol>
+      <div class="prompt">
+        <h4>Prompt da foto</h4>
+        <p class="prompt-text">Foto profissional de comida, coxinhas douradas e crocantes, uma partida ao meio mostrando recheio cremoso de frango, cesta de papel, copo de suco de laranja, luz natural, close apetitoso</p>
+        <button type="button" class="copy">Copiar prompt</button>
+      </div>
+    </section>
+  </div>
+</article>
+
+<article class="day sheet" id="dia-11">
+  <header class="day-head">
+    <div class="day-n"><small>dia</small>11</div>
+    <div class="day-title">
+      <div class="day-date">sexta, 30/10</div>
+      <h3>Pescada empanada com fritas</h3>
+    </div>
+  </header>
+  <figure class="photo"><img src="img/dia-11.webp" alt="Foto do prato: pescada empanada com fritas" width="1280" height="960" loading="lazy" decoding="async" onerror="this.parentElement.hidden=true"></figure>
+  <div class="day-grid">
+    <section class="menu">
+      <h4>Cardápio do dia</h4>
+      <dl>
+        <dt>Café</dt><dd>pão de queijo de frigideira e vitamina de banana com chia</dd>
+        <dt>Lanche da manhã</dt><dd>salada de frutas com iogurte</dd>
+        <dt>Almoço</dt><dd class="rx">iscas de pescada branca empanadas, batata frita na air fryer, arroz e salada de tomate</dd>
+        <dt>Lanche da tarde</dt><dd>torrada com requeijão</dd>
+        <dt>Jantar</dt><dd>macarrão ao molho de tomate com carne moída e cenoura ralada</dd>
+        <dt>Ceia</dt><dd>iogurte</dd>
+      </dl>
+    </section>
+    <section class="recipe">
+      <h4>Ingredientes do almoço</h4>
+      <p class="ing">150 g de pescada branca em iscas, limão, 1 ovo, panko, farinha, sal iodado. 2 batatas em palitos.</p>
+      <h4>Modo de preparo</h4>
+      <ol>
+        <li>Tempere a pescada com sal e limão. Farinha, ovo e panko.</li>
+        <li>Batata em palitos com fio de azeite: air fryer a 200&nbsp;°C por 20 minutos, chacoalhando. Reserve.</li>
+        <li>Pescada a 200&nbsp;°C por 10 minutos, virando na metade, até ficar branca e soltando em lascas.</li>
+      </ol>
+      <div class="prompt">
+        <h4>Prompt da foto</h4>
+        <p class="prompt-text">Foto profissional de comida, iscas de peixe empanadas douradas e batatas fritas crocantes, limão e molhinho ao lado, papel manteiga, cesta, luz natural, close apetitoso</p>
+        <button type="button" class="copy">Copiar prompt</button>
+      </div>
+    </section>
+  </div>
+</article>
+
+<article class="day sheet" id="dia-12">
+  <header class="day-head">
+    <div class="day-n"><small>dia</small>12</div>
+    <div class="day-title">
+      <div class="day-date">sábado, 31/10</div>
+      <h3>Pizza caseira de frigideira</h3>
+    </div>
+  </header>
+  <figure class="photo"><img src="img/dia-12.webp" alt="Foto do prato: pizza caseira de frigideira" width="1280" height="960" loading="lazy" decoding="async" onerror="this.parentElement.hidden=true"></figure>
+  <div class="day-grid">
+    <section class="menu">
+      <h4>Cardápio do dia</h4>
+      <dl>
+        <dt>Café</dt><dd>panqueca de aveia com banana e mel, e leite</dd>
+        <dt>Lanche da manhã</dt><dd>morangos com iogurte</dd>
+        <dt>Almoço</dt><dd>arroz, feijão, frango grelhado na air fryer e cenoura assada com mel</dd>
+        <dt>Lanche da tarde</dt><dd>manga picada</dd>
+        <dt>Jantar</dt><dd class="rx">pizza de massa de tapioca com molho, muçarela, frango e milho</dd>
+        <dt>Ceia</dt><dd>leite morno</dd>
+      </dl>
+    </section>
+    <section class="recipe">
+      <h4>Ingredientes do jantar</h4>
+      <p class="ing">3 colheres de goma de tapioca, 1 ovo, 1 colher de leite, molho de tomate com espinafre batido, muçarela, frango desfiado, milho.</p>
+      <h4>Modo de preparo</h4>
+      <ol>
+        <li>Misture a tapioca, o ovo e o leite. Asse em frigideira antiaderente dos dois lados.</li>
+        <li>Cubra com molho, frango, milho e muçarela.</li>
+        <li>Air fryer a 180&nbsp;°C por 5 minutos, até o queijo derreter.</li>
+      </ol>
+      <div class="prompt">
+        <h4>Prompt da foto</h4>
+        <p class="prompt-text">Foto profissional de comida, pizza individual com queijo derretido puxando, frango desfiado e milho, borda dourada, tábua de madeira, luz natural quente, close apetitoso</p>
+        <button type="button" class="copy">Copiar prompt</button>
+      </div>
+    </section>
+  </div>
+</article>
+
+<article class="day sheet" id="dia-13">
+  <header class="day-head">
+    <div class="day-n"><small>dia</small>13</div>
+    <div class="day-title">
+      <div class="day-date">domingo, 01/11</div>
+      <h3>Frango à parmegiana recheado</h3>
+    </div>
+  </header>
+  <figure class="photo"><img src="img/dia-13.webp" alt="Foto do prato: frango à parmegiana recheado" width="1280" height="960" loading="lazy" decoding="async" onerror="this.parentElement.hidden=true"></figure>
+  <div class="day-grid">
+    <section class="menu">
+      <h4>Cardápio do dia</h4>
+      <dl>
+        <dt>Café</dt><dd>misto quente com ovo e suco de laranja com acerola</dd>
+        <dt>Lanche da manhã</dt><dd>vitamina de manga com leite e aveia</dd>
+        <dt>Almoço</dt><dd class="rx">frango à parmegiana recheado com queijo, arroz, feijão e batata rústica</dd>
+        <dt>Lanche da tarde</dt><dd>bolo de caneca de banana com aveia</dd>
+        <dt>Jantar</dt><dd>caldinho de feijão com queijo e torradinhas</dd>
+        <dt>Ceia</dt><dd>iogurte</dd>
+      </dl>
+    </section>
+    <section class="recipe">
+      <h4>Ingredientes do almoço</h4>
+      <p class="ing">1 filé grosso de frango, 1 fatia de muçarela para o recheio, 1 ovo, panko com linhaça, farinha, molho de tomate com cenoura batida, muçarela e parmesão.</p>
+      <h4>Modo de preparo</h4>
+      <ol>
+        <li>Abra um bolso no filé e coloque o queijo dentro. Feche com palito.</li>
+        <li>Farinha, ovo e panko. Air fryer a 190&nbsp;°C por 16 minutos, virando na metade, até cozinhar bem no centro.</li>
+        <li>Molho, queijo e parmesão por cima, mais 4 minutos.</li>
+      </ol>
+      <div class="prompt">
+        <h4>Prompt da foto</h4>
+        <p class="prompt-text">Foto profissional de comida, frango à parmegiana cortado ao meio com queijo derretido escorrendo do recheio, molho de tomate e queijo gratinado por cima, batatas rústicas, prato branco, luz natural, close apetitoso</p>
+        <button type="button" class="copy">Copiar prompt</button>
+      </div>
+    </section>
+  </div>
+</article>
+
+<article class="day sheet" id="dia-14">
+  <header class="day-head">
+    <div class="day-n"><small>dia</small>14</div>
+    <div class="day-title">
+      <div class="day-date">segunda, 02/11</div>
+      <h3>Panqueca de carne</h3>
+    </div>
+  </header>
+  <figure class="photo"><img src="img/dia-14.webp" alt="Foto do prato: panqueca de carne" width="1280" height="960" loading="lazy" decoding="async" onerror="this.parentElement.hidden=true"></figure>
+  <div class="day-grid">
+    <section class="menu">
+      <h4>Cardápio do dia</h4>
+      <dl>
+        <dt>Café</dt><dd>ovos mexidos com queijo e pão integral, e vitamina de morango</dd>
+        <dt>Lanche da manhã</dt><dd>banana com mel e chia</dd>
+        <dt>Almoço</dt><dd class="rx">panquecas de carne moída ao molho de tomate gratinadas</dd>
+        <dt>Lanche da tarde</dt><dd>iogurte com nozes</dd>
+        <dt>Jantar</dt><dd>tilápia assada na air fryer com purê de batata-doce e brócolis</dd>
+        <dt>Ceia</dt><dd>leite com cacau</dd>
+      </dl>
+    </section>
+    <section class="recipe">
+      <h4>Ingredientes do almoço</h4>
+      <p class="ing">Massa: 1 ovo, 1/2 xícara de leite, 1/2 xícara de farinha. Recheio: 150 g de carne moída refogada com cenoura ralada. Molho de tomate e muçarela.</p>
+      <h4>Modo de preparo</h4>
+      <ol>
+        <li>Bata a massa e faça 3 discos finos na frigideira.</li>
+        <li>Recheie com a carne bem cozida e enrole.</li>
+        <li>Cubra com molho e muçarela. Air fryer a 180&nbsp;°C por 6 minutos.</li>
+      </ol>
+      <div class="prompt">
+        <h4>Prompt da foto</h4>
+        <p class="prompt-text">Foto profissional de comida, panquecas enroladas recheadas com carne, cobertas com molho de tomate e queijo gratinado dourado, refratário pequeno, luz natural quente, close apetitoso</p>
+        <button type="button" class="copy">Copiar prompt</button>
+      </div>
+    </section>
+  </div>
+</article>
+
+<article class="day sheet" id="dia-15">
+  <header class="day-head">
+    <div class="day-n"><small>dia</small>15</div>
+    <div class="day-title">
+      <div class="day-date">terça, 03/11</div>
+      <h3>Festa da parmegiana de carne</h3>
+    </div>
+  </header>
+  <figure class="photo"><img src="img/dia-15.webp" alt="Foto do prato: festa da parmegiana de carne" width="1280" height="960" loading="lazy" decoding="async" onerror="this.parentElement.hidden=true"></figure>
+  <div class="day-grid">
+    <section class="menu">
+      <h4>Cardápio do dia</h4>
+      <dl>
+        <dt>Café</dt><dd>panqueca de banana com aveia e morango, e leite com achocolatado</dd>
+        <dt>Lanche da manhã</dt><dd>iogurte com mel e linhaça</dd>
+        <dt>Almoço</dt><dd class="rx">bife à parmegiana com arroz, feijão e batata frita na air fryer</dd>
+        <dt>Lanche da tarde</dt><dd>salada de frutas</dd>
+        <dt>Jantar</dt><dd>escondidinho de frango com purê de abóbora e queijo</dd>
+        <dt>Ceia</dt><dd>leite morno com mel</dd>
+      </dl>
+    </section>
+    <section class="recipe">
+      <h4>Ingredientes do almoço</h4>
+      <p class="ing">1 bife de patinho batido, 1 ovo, panko, farinha, molho de tomate com espinafre batido, muçarela e parmesão. 2 batatas em palitos.</p>
+      <h4>Modo de preparo</h4>
+      <ol>
+        <li>Batatas a 200&nbsp;°C por 20 minutos. Reserve.</li>
+        <li>Empane o bife e asse a 200&nbsp;°C por 12 minutos, até ficar bem passado.</li>
+        <li>Molho, muçarela e parmesão, mais 4 minutos.</li>
+      </ol>
+      <div class="prompt">
+        <h4>Prompt da foto</h4>
+        <p class="prompt-text">Foto profissional de comida, bife à parmegiana grande e gratinado, batatas fritas douradas, arroz e feijão, prato branco, mesa festiva, luz natural, close apetitoso</p>
+        <button type="button" class="copy">Copiar prompt</button>
+      </div>
+    </section>
+  </div>
+</article>
+
+<div class="sec-head" id="base">
+  <h2><span class="trio" aria-hidden="true"><i></i><i></i><i></i></span>Receitas-base</h2>
+</div>
+<section class="sheet">
+  <p class="sec-intro">As cinco preparações que se repetem ao longo do livrinho.</p>
+  <div class="base">
+    <div>
+      <h3>Molho turbinado</h3>
+      <p>Rende para 4 dias. Bata 2 caixas de molho de tomate com 1 punhado de espinafre cozido ou 1 cenoura cozida. Ferva por 5 minutos e guarde na geladeira em pote fechado.</p>
+    </div>
+    <div>
+      <h3>Empanado crocante na air fryer</h3>
+      <p>Farinha de trigo, ovo batido e panko com 1 colher de linhaça. Unte a cesta com fio de azeite. 200&nbsp;°C, virando na metade.</p>
+    </div>
+    <div>
+      <h3>Panqueca de banana</h3>
+      <p>Amasse 1 banana, junte 1 ovo e 2 colheres de aveia. Frigideira antiaderente, 2 minutos de cada lado.</p>
+    </div>
+    <div>
+      <h3>Pão de queijo de frigideira</h3>
+      <p>1 ovo, 2 colheres de tapioca, 1 colher de requeijão e 2 colheres de muçarela ralada. Tampe e doure dos dois lados.</p>
+    </div>
+    <div>
+      <h3>Vitamina turbinada</h3>
+      <p>1 copo de leite, 1 fruta e 1 colher de chia ou linhaça. Bata e beba na hora.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p><b>Feito com carinho para a Mari e para a Lala, que ainda nem chegou.</b> Qualquer dúvida sobre o cardápio ou os suplementos, pergunte à obstetra.</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  // Copiar o prompt da foto
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var box = btn.closest('.prompt');
+      var el = box ? box.querySelector('.prompt-text') : null;
+      if (!el) return;
+      var text = el.textContent.trim();
+      function done(msg) {
+        btn.textContent = msg;
+        btn.classList.add('ok');
+        setTimeout(function () { btn.textContent = 'Copiar prompt'; btn.classList.remove('ok'); }, 2000);
+      }
+      function fallback() {
+        try {
+          var range = document.createRange();
+          range.selectNodeContents(el);
+          var sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          done('Texto selecionado, copie com Ctrl+C');
+        } catch (e) {
+          done('Não deu para copiar');
+        }
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done('Copiado'); }).catch(fallback);
+      } else {
+        fallback();
+      }
+    });
+  });
+
+  // Lista de compras: marcações salvas só neste aparelho
+  var KEY = 'livrinho-mari-compras-v1';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.shop input[type="checkbox"]'));
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+  var count = document.getElementById('shop-count');
+  function update() {
+    var n = boxes.filter(function (b) { return b.checked; }).length;
+    if (count) count.textContent = n + ' de ' + boxes.length + ' no carrinho';
+  }
+  boxes.forEach(function (b) {
+    if (saved[b.id]) b.checked = true;
+    b.addEventListener('change', function () {
+      saved[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+      update();
+    });
+  });
+  var clear = document.getElementById('shop-clear');
+  if (clear) {
+    clear.addEventListener('click', function () {
+      boxes.forEach(function (b) { b.checked = false; });
+      saved = {};
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      update();
+    });
+  }
+  update();
+})();
+</script>
+</body>
+</html>

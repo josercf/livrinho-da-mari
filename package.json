@@ -1,0 +1,15 @@
+{
+  "name": "livrinho-da-mari",
+  "private": true,
+  "type": "module",
+  "description": "Quinze dias de comidinhas para a Mari e para a Lala.",
+  "scripts": {
+    "fotos": "node scripts/gerar-fotos.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.33.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
