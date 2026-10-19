@@ -13,12 +13,14 @@ Endereço do site: https://josercf.github.io/livrinho-da-mari/
 
 ## Primeira vez
 
-1. Crie uma chave em https://aistudio.google.com/apikey.
-2. No repositório, abra Settings, depois Secrets and variables, depois Actions. Clique em New repository secret, use o nome `GEMINI_API_KEY` e cole a chave.
-3. Em Settings, depois Pages, escolha GitHub Actions como Source.
-4. Na aba Actions, abra Gerar fotos dos pratos e clique em Run workflow.
+As 15 fotos já estão no repositório. Falta só ligar o site:
 
-Em alguns minutos as fotos aparecem em `site/img/` e o site é publicado de novo com elas.
+1. Em Settings, depois Pages, escolha GitHub Actions como Source.
+2. Na aba Actions, abra Publicar no GitHub Pages e clique em Run workflow.
+
+Em um ou dois minutos o site aparece no endereço lá de cima. Daí em diante, cada mudança no repositório publica o site sozinha.
+
+Para gerar fotos pelo GitHub, a chave do Gemini precisa estar salva em Settings, depois Secrets and variables, depois Actions, com o nome `GEMINI_API_KEY`. As chaves são criadas em https://aistudio.google.com/apikey.
 
 ## Trocar uma foto
 
